@@ -1,0 +1,264 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Romantic color palette - soft pinks, lavender, cream */
+    --background: 340 100% 98%;
+    --foreground: 340 30% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 340 30% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 340 30% 20%;
+
+    /* Romantic pink as primary */
+    --primary: 340 82% 65%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 340 100% 85%;
+
+    /* Soft lavender as secondary */
+    --secondary: 270 60% 85%;
+    --secondary-foreground: 270 30% 25%;
+
+    /* Cream tones */
+    --muted: 40 40% 95%;
+    --muted-foreground: 340 20% 45%;
+
+    /* Accent lavender */
+    --accent: 270 70% 75%;
+    --accent-foreground: 270 30% 25%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 340 30% 90%;
+    --input: 340 30% 90%;
+    --ring: 340 82% 65%;
+
+    --radius: 1rem;
+    
+    /* Custom romantic tokens */
+    --rose: 340 82% 65%;
+    --rose-light: 340 100% 85%;
+    --rose-dark: 340 60% 50%;
+    --lavender: 270 70% 75%;
+    --lavender-light: 270 60% 85%;
+    --cream: 40 40% 95%;
+    --cream-dark: 40 30% 85%;
+    
+    /* Gradients */
+    --gradient-romantic: linear-gradient(135deg, hsl(340 82% 65%) 0%, hsl(270 70% 75%) 100%);
+    --gradient-soft: linear-gradient(180deg, hsl(340 100% 98%) 0%, hsl(270 60% 95%) 100%);
+    --gradient-glow: radial-gradient(circle at center, hsl(340 100% 85% / 0.3), transparent);
+    --gradient-rose-gold: linear-gradient(135deg, hsl(340 82% 65%) 0%, hsl(30 80% 70%) 100%);
+    --gradient-twilight: linear-gradient(180deg, hsl(270 60% 30%) 0%, hsl(340 82% 40%) 50%, hsl(30 70% 60%) 100%);
+    --gradient-nostalgic: linear-gradient(135deg, hsl(340 60% 70% / 0.6) 0%, hsl(270 50% 75% / 0.6) 100%);
+    --gradient-eternal: radial-gradient(ellipse at center, hsl(340 100% 90% / 0.5), hsl(270 70% 85% / 0.3), transparent);
+    --gradient-cosmic: linear-gradient(180deg, hsl(230 70% 15%) 0%, hsl(270 60% 25%) 50%, hsl(340 60% 35%) 100%);
+    --gradient-serenity: linear-gradient(135deg, hsl(200 60% 85%) 0%, hsl(270 40% 90%) 100%);
+    --gradient-desire: linear-gradient(135deg, hsl(0 70% 45%) 0%, hsl(340 90% 55%) 100%);
+    --gradient-timewarp: linear-gradient(90deg, hsl(180 70% 60%), hsl(270 70% 60%), hsl(340 70% 60%));
+    --gradient-mirror: radial-gradient(circle at center, hsl(340 100% 95% / 0.1), hsl(270 70% 90% / 0.05), transparent);
+    
+    /* Shadows */
+    --shadow-romantic: 0 10px 40px -10px hsl(340 82% 65% / 0.3);
+    --shadow-glow: 0 0 60px hsl(340 100% 85% / 0.6);
+    --shadow-soft: 0 4px 20px hsl(340 20% 80% / 0.2);
+    
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 340 30% 12%;
+    --foreground: 340 100% 95%;
+
+    --card: 340 25% 15%;
+    --card-foreground: 340 100% 95%;
+
+    --popover: 340 25% 15%;
+    --popover-foreground: 340 100% 95%;
+
+    --primary: 340 82% 65%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 340 100% 75%;
+
+    --secondary: 270 50% 25%;
+    --secondary-foreground: 270 100% 95%;
+
+    --muted: 340 20% 20%;
+    --muted-foreground: 340 30% 65%;
+
+    --accent: 270 60% 35%;
+    --accent-foreground: 270 100% 95%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 340 20% 25%;
+    --input: 340 20% 25%;
+    --ring: 340 82% 65%;
+  }
+}
+
+@layer utilities {
+  .font-romantic {
+    font-family: 'Dancing Script', cursive;
+  }
+  
+  .font-elegant {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .text-gradient-romantic {
+    background: var(--gradient-romantic);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-heartbeat {
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 3s linear infinite;
+  }
+  
+  .long-press-trigger {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px hsl(340 100% 85% / 0.5), 0 0 20px hsl(340 100% 85% / 0.3);
+  }
+  to {
+    text-shadow: 0 0 20px hsl(340 100% 85% / 0.8), 0 0 40px hsl(340 100% 85% / 0.5);
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  10%, 30% {
+    transform: scale(1.1);
+  }
+  20%, 40% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes slideScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
