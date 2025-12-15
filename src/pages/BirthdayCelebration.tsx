@@ -261,10 +261,10 @@ const Cake = ({ onBlowOut }: { onBlowOut: () => void }) => {
   useEffect(() => { setMicActive(true); }, []);
 
   useFrame((state, delta) => {
-    // INCREASED THRESHOLD to 0.4 to prevent false triggers
-    if (candlesLit && volume > 0.4) {
+    // LOWERED THRESHOLD to 0.15 for better sensitivity
+    if (candlesLit && volume > 0.1) {
       blowDuration.current += delta;
-      if (blowDuration.current > 1.0) { // Require 1 second of blowing
+      if (blowDuration.current > 0.5) { // Reduced to 0.5 seconds
         setCandlesLit(false);
         onBlowOut();
         toast.success("MAKE A WISH! ✨");
