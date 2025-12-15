@@ -81,7 +81,7 @@ const Auth = () => {
         if (error) throw error;
 
         toast({
-          title: "Welcome back!",
+          title: "Welcome back UNNATIIIIIIIIIII(I hope it's you)!",
           description: "You've successfully logged in.",
         });
         
