@@ -111,7 +111,7 @@ const Auth = () => {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl text-center text-pink-600">
-            {isLogin ? "Welcome Back" : "Create Account"}
+            {isLogin ? "Welcome Back UNNATIIIIIIIIIII(I hope it's you)!" : "Create Account"}
           </CardTitle>
           <CardDescription className="text-center">
             {isLogin
