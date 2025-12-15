@@ -115,7 +115,7 @@ const Auth = () => {
           </CardTitle>
           <CardDescription className="text-center">
             {isLogin
-              ? "Ya you gotta guess the password. Hint: it's 4x2 characters long"
+              ? "Ya you gotta guess the password.(I'll tell)"
               : "Sign up with your authorized email"}
           </CardDescription>
         </CardHeader>
