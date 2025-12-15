@@ -93,7 +93,7 @@ const LoveCoupons = () => {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 via-rose-100 to-purple-100">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600 mx-auto mb-4"></div>
-          <p className="text-pink-600">Loading your love coupons...</p>
+          <p className="text-pink-600">Loading your coupons</p>
         </div>
       </div>
     );
@@ -131,7 +131,7 @@ const LoveCoupons = () => {
             Love Coupons 💝
           </h1>
           <p className="text-lg text-foreground/80 font-romantic">
-            Redeem these special moments whenever your heart desires
+            Redeem these special moments whenever you want. I know im so nice like so so nice.
           </p>
         </div>
 

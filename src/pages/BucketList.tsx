@@ -158,7 +158,7 @@ const BucketList = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-pink-100 via-rose-50 to-white">
-        <p className="text-pink-600">Loading...</p>
+        <p className="text-pink-600">Loading</p>
       </div>
     );
   }
@@ -171,7 +171,7 @@ const BucketList = () => {
             <Heart className="w-10 h-10 fill-pink-500 text-pink-500" />
             Our Bucket List
           </h1>
-          <p className="text-rose-500">Dreams we'll make come true together 💕</p>
+          <p className="text-rose-500">Dreams we'll make come true together 💕 (I don't forget any)</p>
           <Button
             onClick={() => navigate("/")}
             variant="outline"
@@ -217,7 +217,7 @@ const BucketList = () => {
           {items.length === 0 ? (
             <Card>
               <CardContent className="py-12 text-center text-gray-500">
-                No items yet. Start adding your dreams! 🌟
+                No items yet. Start adding your dreams! 
               </CardContent>
             </Card>
           ) : (

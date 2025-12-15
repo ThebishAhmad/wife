@@ -167,7 +167,7 @@ const HotColdGame = () => {
             Hot & Cold Love Hunt 💝
           </h1>
           <p className="text-lg font-romantic text-white/90 max-w-2xl mx-auto">
-            Find my hidden heart before time runs out! Watch out for decoys!
+            Find my hidden heart before time runs out!
           </p>
           <div className="flex gap-4 justify-center mt-4 flex-wrap">
             <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
@@ -274,7 +274,7 @@ const HotColdGame = () => {
                 Time's Up! ⏰
               </h2>
               <p className="text-xl font-romantic text-center text-foreground leading-relaxed">
-                My heart was too well hidden this time. But don't worry, I'll always be here waiting for you to find me again. 💕
+                My heart was too well hidden this time. But don't worry, I'll always be here waiting for you to find me again. 
               </p>
               <Button 
                 onClick={() => window.location.reload()} 
@@ -296,7 +296,7 @@ const HotColdGame = () => {
           </DialogHeader>
           <div className="py-6">
             <p className="text-xl font-romantic text-center text-foreground leading-relaxed">
-              No matter where I hide it, you always find your way to my heart. That's because it's always been yours.
+              No matter where I hide it, you always find your way to my heart. Thats because it's always been yours.
             </p>
           </div>
         </DialogContent>

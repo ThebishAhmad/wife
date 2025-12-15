@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 
-// Set the date you first met or started loving her (adjust this!)
-const START_DATE = new Date("2023-01-01T00:00:00");
+// 19th May 2025, 11:50 PM
+const START_DATE = new Date("2025-05-19T23:50:00");
 
 export const EternalCountdown = () => {
   const [timeElapsed, setTimeElapsed] = useState({
@@ -17,22 +17,53 @@ export const EternalCountdown = () => {
   useEffect(() => {
     const calculateTime = () => {
       const now = new Date();
-      const diff = now.getTime() - START_DATE.getTime();
+      let start = new Date(START_DATE);
 
-      const seconds = Math.floor(diff / 1000);
-      const minutes = Math.floor(seconds / 60);
-      const hours = Math.floor(minutes / 60);
-      const days = Math.floor(hours / 24);
-      const months = Math.floor(days / 30.44);
-      const years = Math.floor(days / 365.25);
+      let years = now.getFullYear() - start.getFullYear();
+      let months = now.getMonth() - start.getMonth();
+      let days = now.getDate() - start.getDate();
+      let hours = now.getHours() - start.getHours();
+      let minutes = now.getMinutes() - start.getMinutes();
+      let seconds = now.getSeconds() - start.getSeconds();
+
+      // Borrow seconds
+      if (seconds < 0) {
+        seconds += 60;
+        minutes--;
+      }
+
+      // Borrow minutes
+      if (minutes < 0) {
+        minutes += 60;
+        hours--;
+      }
+
+      // Borrow hours
+      if (hours < 0) {
+        hours += 24;
+        days--;
+      }
+
+      // Borrow days (from previous month)
+      if (days < 0) {
+        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
+        months--;
+      }
+
+      // Borrow months
+      if (months < 0) {
+        months += 12;
+        years--;
+      }
 
       setTimeElapsed({
         years,
-        months: months % 12,
-        days: days % 30,
-        hours: hours % 24,
-        minutes: minutes % 60,
-        seconds: seconds % 60,
+        months,
+        days,
+        hours,
+        minutes,
+        seconds,
       });
     };
 
@@ -46,6 +77,7 @@ export const EternalCountdown = () => {
       <h3 className="text-2xl font-elegant font-bold text-center text-gradient-romantic mb-4">
         Loving You For ∞
       </h3>
+
       <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 text-center">
         {[
           { label: "Years", value: timeElapsed.years },
@@ -56,14 +88,20 @@ export const EternalCountdown = () => {
           { label: "Seconds", value: timeElapsed.seconds },
         ].map((item) => (
           <div key={item.label} className="space-y-1">
-            <div className="text-3xl font-bold text-foreground">{item.value}</div>
-            <div className="text-xs font-romantic text-muted-foreground">{item.label}</div>
+            <div className="text-3xl font-bold text-foreground">
+              {item.value}
+            </div>
+            <div className="text-xs font-romantic text-muted-foreground">
+              {item.label}
+            </div>
           </div>
         ))}
       </div>
+
       <div className="flex justify-center mt-4">
         <Heart className="w-6 h-6 fill-rose text-rose animate-heartbeat" />
       </div>
+
       <p className="text-sm font-romantic text-center text-muted-foreground mt-2">
         Every second with you is a gift 💖
       </p>

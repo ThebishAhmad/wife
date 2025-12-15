@@ -35,7 +35,7 @@ export const WelcomePopup = ({ userEmail }: WelcomePopupProps) => {
             Welcome, My Love!
             <Sparkles className="w-6 h-6 text-yellow-500" />
           </DialogTitle>
-          <DialogDescription className="text-center text-lg pt-4 text-rose-400">
+          <div className="text-center text-lg pt-4 text-rose-400">
             <div className="space-y-4">
               <p className="font-semibold text-xl">✨ You're finally here! ✨</p>
               <p>This entire website was made just for you, with all my love and care.</p>
@@ -46,7 +46,7 @@ export const WelcomePopup = ({ userEmail }: WelcomePopupProps) => {
                 Explore, enjoy, and know that you're the most special person in my world. 🌟
               </p>
             </div>
-          </DialogDescription>
+          </div>
         </DialogHeader>
         <div className="flex justify-center pt-4">
           <button

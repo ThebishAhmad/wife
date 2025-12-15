@@ -11,6 +11,7 @@ import {
   BookOpen,
   Atom,
   Sparkles,
+  Cake,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
@@ -59,10 +60,10 @@ const universeLinks = [
     gradient: "from-rose-500 to-pink-500",
   },
   {
-    to: "/love-story",
-    icon: BookOpen,
-    title: "Our Love Story",
-    description: "3D carousel of our beautiful chapters",
+    to: "/birthday-celebration",
+    icon: Cake,
+    title: "Birthday Celebration",
+    description: "Make a wish! 🎂",
     gradient: "from-violet-500 to-fuchsia-500",
   },
   {
@@ -144,7 +145,7 @@ const UniverseDashboard = () => {
                     inactiveZone={0.01}
                     borderWidth={2}
                   />
-                  
+
                   {/* Gradient overlay */}
                   <div
                     className={`absolute inset-0 bg-gradient-to-br ${link.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-3xl`}
@@ -204,7 +205,7 @@ const UniverseDashboard = () => {
                       inactiveZone={0.01}
                       borderWidth={2}
                     />
-                    
+
                     {/* Gradient overlay */}
                     <div
                       className={`absolute inset-0 bg-gradient-to-br ${link.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-3xl`}

@@ -4,6 +4,10 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
 
+import scene from "@/assets/scene.png";
+import front from "@/assets/front.jpg";
+
+
 const StardustMemories = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -23,8 +27,8 @@ const StardustMemories = () => {
       </Link>
       <ScrollExpandMedia
         mediaType="image"
-        mediaSrc="https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=1280&auto=format&fit=crop"
-        bgImageSrc="https://images.unsplash.com/photo-1519638399535-1b036603ac77?q=80&w=1920&auto=format&fit=crop"
+        mediaSrc={front}
+        bgImageSrc= {scene}
         title="Our Love Story"
         date="Every Moment Together"
         scrollToExpand="Scroll to explore our memories"
@@ -33,10 +37,10 @@ const StardustMemories = () => {
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="text-center">
             <h2 className="text-4xl font-elegant font-bold mb-6 text-foreground">
-              Every Memory Shines Like Stardust ✨
+              Every Memory Shines Like Stardust 
             </h2>
             <p className="text-xl font-romantic text-foreground/80 leading-relaxed">
-              From the first moment we met to every laugh, every adventure, every quiet moment together - 
+              From the first moment we met to every laugh, every adventure, every quiet moment together,
               each memory we create is like a star in our personal constellation. Together, we're creating 
               a universe of beautiful moments that shine forever.
             </p>
@@ -48,8 +52,9 @@ const StardustMemories = () => {
                 The Beginning 💖
               </h3>
               <p className="font-romantic text-foreground/70 leading-relaxed">
-                Every love story has a beginning, and ours started with a spark that grew into an eternal flame. 
-                The way you smiled, the way you laughed - I knew you were special from day one.
+                Every story has a beautiful beginning, ours had two. The first time we met and the second time
+                our paths crossed again.
+                The way you smiled, the way you laughed, I knew you were special from day one.
               </p>
             </div>
 
@@ -59,20 +64,10 @@ const StardustMemories = () => {
               </h3>
               <p className="font-romantic text-foreground/70 leading-relaxed">
                 Through ups and downs, we've grown stronger together. Every challenge we've faced has only 
-                brought us closer. You're not just my love - you're my best friend, my partner in everything.
+                brought us closer. You're not just my love, you're my best friend, my partner in everything.
               </p>
             </div>
 
-            <div className="bg-card/60 backdrop-blur-sm rounded-2xl p-8 border border-rose-light/20">
-              <h3 className="text-2xl font-elegant font-semibold mb-4 text-foreground">
-                Forever & Always 💫
-              </h3>
-              <p className="font-romantic text-foreground/70 leading-relaxed">
-                As we continue this journey together, I promise to cherish every moment. Our story is still 
-                being written, and I can't wait to create countless more memories with you. Here's to forever 
-                with my forever person.
-              </p>
-            </div>
           </div>
         </div>
       </ScrollExpandMedia>

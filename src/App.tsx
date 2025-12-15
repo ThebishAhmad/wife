@@ -21,19 +21,19 @@ import MemoryElevator from "./pages/MemoryElevator";
 import UniverseDashboard from "./pages/UniverseDashboard";
 import DoraemonMemory from "./pages/DoraemonMemory";
 import TaylorConcertStage from "./pages/TaylorConcertStage";
-import InteractiveLoveStory from "./pages/InteractiveLoveStory";
+import BirthdayCelebration from "./pages/BirthdayCelebration";
 import OurJourneyTimeline from "./pages/OurJourneyTimeline";
 import QuantumPlayground from "./pages/QuantumPlayground";
 import PixelatedPortrait from "./pages/PixelatedPortrait";
 import OurDateBook from "./pages/OurDateBook";
 import StardustMemories from "./pages/StardustMemories";
-import HeartbeatSymphony from "./pages/HeartbeatSymphony";
 import HeroParallaxPage from "./pages/HeroParallaxPage";
 import LoveScrollJourney from "./pages/LoveScrollJourney";
 import Auth from "./pages/Auth";
 import BucketList from "./pages/BucketList";
 import LoveDome3D from "./pages/LoveDome3D";
 import InfiniteMemories from "./pages/InfiniteMemories";
+import InteractiveParticles from "./pages/InteractiveParticles";
 
 const queryClient = new QueryClient();
 
@@ -62,17 +62,17 @@ const App = () => (
           <Route path="/universe" element={<AuthGuard><UniverseDashboard /></AuthGuard>} />
           <Route path="/doraemon" element={<AuthGuard><DoraemonMemory /></AuthGuard>} />
           <Route path="/taylor-concert" element={<AuthGuard><TaylorConcertStage /></AuthGuard>} />
-          <Route path="/love-story" element={<AuthGuard><InteractiveLoveStory /></AuthGuard>} />
-          
+          <Route path="/birthday-celebration" element={<AuthGuard><BirthdayCelebration /></AuthGuard>} />
+
           <Route path="/quantum-playground" element={<AuthGuard><QuantumPlayground /></AuthGuard>} />
           <Route path="/pixelated-portrait" element={<AuthGuard><PixelatedPortrait /></AuthGuard>} />
           <Route path="/our-date-book" element={<AuthGuard><OurDateBook /></AuthGuard>} />
           <Route path="/stardust-memories" element={<AuthGuard><StardustMemories /></AuthGuard>} />
-          <Route path="/heartbeat-symphony" element={<AuthGuard><HeartbeatSymphony /></AuthGuard>} />
           <Route path="/hero-parallax" element={<AuthGuard><HeroParallaxPage /></AuthGuard>} />
           <Route path="/love-scroll-journey" element={<AuthGuard><LoveScrollJourney /></AuthGuard>} />
           <Route path="/love-dome-3d" element={<AuthGuard><LoveDome3D /></AuthGuard>} />
           <Route path="/infinite-memories" element={<AuthGuard><InfiniteMemories /></AuthGuard>} />
+          <Route path="/particles" element={<AuthGuard><InteractiveParticles /></AuthGuard>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

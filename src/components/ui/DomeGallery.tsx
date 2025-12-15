@@ -2,18 +2,127 @@ import { useEffect, useMemo, useRef, useCallback } from 'react';
 import { useGesture } from '@use-gesture/react';
 import './DomeGallery.css';
 
+// --- Image Imports from Previous Step ---
+import img1 from "@/assets/IMG-20250517-WA0031.jpg?url";
+import img2 from "@/assets/IMG-20250520-WA0032.jpg?url";
+import img3 from "@/assets/IMG-20250521-WA0003.jpg?url";
+import img4 from "@/assets/IMG-20250522-WA0012.jpg?url";
+import img5 from "@/assets/IMG-20250527-WA0010.jpg?url";
+import img6 from "@/assets/IMG-20250527-WA0011.jpg?url";
+import img7 from "@/assets/IMG-20250528-WA0006.jpg?url";
+import img8 from "@/assets/IMG-20250529-WA0003.jpg?url";
+import img9 from "@/assets/IMG-20250531-WA0011.jpg?url";
+import img10 from "@/assets/IMG-20250615-WA0024.jpg?url";
+import img11 from "@/assets/IMG-20250702-WA0023.jpg?url";
+import img12 from "@/assets/IMG-20250703-WA0043.jpg?url";
+import img13 from "@/assets/IMG-20250705-WA0040.jpg?url";
+import img14 from "@/assets/IMG-20250705-WA0041.jpg?url";
+import img15 from "@/assets/IMG-20250713-WA0003.jpg?url";
+import img16 from "@/assets/IMG-20250716-WA0001.jpg?url";
+import img17 from "@/assets/IMG-20250725-WA0038.jpg?url";
+import img18 from "@/assets/IMG-20250725-WA0042.jpg?url";
+import img19 from "@/assets/IMG-20250726-WA0053.jpg?url";
+import img20 from "@/assets/IMG-20250726-WA0057.jpg?url";
+import img21 from "@/assets/IMG-20250730-WA0033.jpg?url";
+import img22 from "@/assets/IMG-20250730-WA0036.jpg?url";
+import img23 from "@/assets/IMG-20250731-WA0024.jpg?url";
+import img24 from "@/assets/IMG-20250731-WA0028.jpg?url";
+import img25 from "@/assets/IMG-20250806-WA0003.jpg?url";
+import img26 from "@/assets/IMG-20250806-WA0006.jpg?url";
+import img27 from "@/assets/IMG-20250809-WA0014.jpg?url";
+import img28 from "@/assets/IMG-20250809-WA0015.jpg?url";
+import img29 from "@/assets/IMG-20250812-WA0039.jpg?url";
+import fallbackImg from "@/assets/scene.png?url";
+
+// --- Image Array ---
 const DEFAULT_IMAGES = [
   {
-    src: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&auto=format&fit=crop',
-    alt: 'Romantic sunset'
+    src: img1,
+    alt: 'IMG-20250517'
   },
   {
-    src: 'https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=800&auto=format&fit=crop',
-    alt: 'Love lock bridge'
+    src: img2
   },
   {
-    src: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&auto=format&fit=crop',
-    alt: 'Couple silhouette'
+    src: img3
+  },
+  {
+    src: img4
+  },
+  {
+    src: img5
+  },
+  {
+    src: img6
+  },
+  {
+    src: img7
+  },
+  {
+    src: img8
+  },
+  {
+    src: img9
+  },
+  {
+    src: img10
+  },
+  {
+    src: img11
+  },
+  {
+    src: img12
+  },
+  {
+    src: img13
+  },
+  {
+    src: img14
+  },
+  {
+    src: img15
+  },
+  {
+    src: img16
+  },
+  {
+    src: img17
+  },
+  {
+    src: img18
+  },
+  {
+    src: img19
+  },
+  {
+    src: img20
+  },
+  {
+    src: img21
+  },
+  {
+    src: img22
+  },
+  {
+    src: img23
+  },
+  {
+    src: img24
+  },
+  {
+    src: img25
+  },
+  {
+    src: img26
+  },
+  {
+    src: img27
+  },
+  {
+    src: img28
+  },
+  {
+    src: img29
   }
 ];
 
@@ -36,9 +145,11 @@ const getDataNumber = (el: HTMLElement, name: string, fallback: number) => {
   return Number.isFinite(n) ? n : fallback;
 };
 
+// FIX 1: Made 'alt' optional to match DEFAULT_IMAGES structure,
+// resolving the type error when assigning DEFAULT_IMAGES to the prop.
 interface ImageItem {
   src: string;
-  alt: string;
+  alt?: string; 
 }
 
 interface ItemCoord extends ImageItem {
@@ -67,6 +178,7 @@ function buildItems(pool: (string | ImageItem)[], seg: number): ItemCoord[] {
     if (typeof image === 'string') {
       return { src: image, alt: '' };
     }
+    // Now that alt is optional in ImageItem, this logic is correct:
     return { src: image.src || '', alt: image.alt || '' };
   });
 
@@ -120,7 +232,7 @@ interface DomeGalleryProps {
 }
 
 export default function DomeGallery({
-  images = DEFAULT_IMAGES,
+  images = DEFAULT_IMAGES, // Now type-safe
   fit = 0.5,
   fitBasis = 'auto',
   minRadius = 600,
@@ -643,7 +755,15 @@ export default function DomeGallery({
                   onClick={onTileClick}
                   onPointerUp={onTilePointerUp}
                 >
-                  <img src={it.src} draggable={false} alt={it.alt} />
+                  <img
+                    src={it.src}
+                    draggable={false}
+                    alt={it.alt}
+                    onError={(e) => {
+                      const el = e.currentTarget as HTMLImageElement;
+                      if (el.src !== fallbackImg) el.src = fallbackImg;
+                    }}
+                  />
                 </div>
               </div>
             ))}

@@ -26,10 +26,10 @@ const HeroParallaxPage = () => {
           Our Beautiful Journey Together 💕
         </h1>
         <p className="text-xl sm:text-2xl font-romantic text-foreground/80 max-w-3xl mx-auto mb-4">
-          Every moment with you is a treasure, every memory a precious gem in the story of us
+          Every moment with you is a treasure, every memory a precious gem in the story of Us
         </p>
         <p className="text-lg font-romantic text-rose-500 dark:text-rose-400 animate-pulse">
-          Scroll through our adventure of love ✨
+          Scroll through our adventure of love 
         </p>
       </div>
       
@@ -42,7 +42,7 @@ const HeroParallaxPage = () => {
             "With you, every chapter is magical, every page filled with love" 💖
           </p>
           <p className="text-lg font-elegant text-muted-foreground">
-            Here's to all the memories we've made and all the adventures still to come...
+            Here's to all the memories we've made and all the adventures still to come
           </p>
         </div>
       </div>

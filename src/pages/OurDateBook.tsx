@@ -2,15 +2,26 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Heart, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { PageFlip } from "page-flip";
 import LightRays from "@/components/ui/LightRays";
+
+
+import Nov8Image from "@/assets/nov8.jpg";
+import Nov9Image from "@/assets/nov9.jpg";
+import Nov22Image from "@/assets/nov22.jpg";
+import Oct16Image from "@/assets/oct16.jpg";
+import Oct17Image from "@/assets/oct17.jpg";
+import Oct24Image from "@/assets/oct24.jpg";
+import Oct2ndImage from "@/assets/2ndoct.jpg";
+import Dec12Image from "@/assets/dec12.jpg";
+import March19Image from "@/assets/march19.jpg";
+import May16Image from "@/assets/may16.jpg";
 
 interface DateStory {
   title: string;
   date: string;
   story: string;
-  spicy: string;
   image: string;
 }
 
@@ -19,49 +30,66 @@ const dates: DateStory[] = [
     title: "The First Glance",
     date: "Where It All Began",
     story: "The moment our eyes met, time froze. Your smile made my heart race like never before. I knew right then that you were someone extraordinary, someone who would change my life forever.",
-    spicy: "The electricity between us was undeniable. Every accidental touch sent shivers down my spine. I couldn't stop thinking about getting closer to you...",
-    image: "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800",
+    image: March19Image,
   },
   {
-    title: "Coffee & Chemistry",
+    title: "Peddler's Day",
     date: "Our First Date",
-    story: "We talked for hours, and it felt like minutes. Your laugh became my favorite sound. The way you looked at me made me feel like the only person in the world.",
-    spicy: "Sitting so close, I could smell your perfume. When our hands touched reaching for the sugar, the tension was palpable. I wanted that moment to last forever...",
-    image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800",
+    story: "We talked for hours, and it felt like minutes. Your laugh became my favorite sound. The way you looked at me made me feel like the only person in the world. We were in a rush, but that did not matter. The goodbye killed a part of me, but I live for the hope of it all.",
+    image: May16Image,
   },
   {
-    title: "Moonlit Magic",
-    date: "That Starry Night",
-    story: "Under the stars, everything felt perfect. Your hand in mine, the gentle breeze, your head on my shoulder. I realized I was falling deeply, madly in love with you.",
-    spicy: "The moonlight danced across your skin. When you looked up at me, I couldn't resist anymore. Our first kiss under the stars was pure magic, passionate and perfect...",
-    image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800",
+    title: "The trip to her",
+    date: "October 2nd, 2025",
+    story: "A trip to Jaipur came down to The trip to Chandigarh, my first one. This was the first time we met after we became Us. The goodbye from Peddler's was all worth it. Every moment with you is worth it.",
+    image: Oct2ndImage,
   },
   {
-    title: "Sunset Promises",
-    date: "The Golden Hour",
-    story: "Watching the sunset together, painting the sky in shades of love. You whispered secrets, dreams, and hopes. I promised to be there for all of them, for all of you.",
-    spicy: "The golden light made you glow. Every curve, every feature looked even more irresistible. I pulled you close, our bodies fitting together perfectly as the sun disappeared...",
-    image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800",
+    title: "Happy Diwali",
+    date: "October 16th, 2025",
+    story: "The craziest idk-how-did-it-work-out-but-it-did-at-the-end. Our initial plan of going to Delhi actually worked out after all the chaos. All the suspense of the train's waiting list and your parents' decision, it went exactly how we wanted it to go.",
+    image: Oct16Image,
   },
   {
-    title: "Rainy Day Romance",
-    date: "When We Got Soaked",
-    story: "Caught in the rain, laughing like crazy. We danced in the puddles, completely soaked and completely happy. It's my favorite memory of pure, uninhibited joy with you.",
-    spicy: "Your wet clothes clung to you, drops of water sliding down your neck. I couldn't take my eyes off you. We rushed inside, breathless, hearts pounding, completely lost in the moment...",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+    title: "Delhi Surprise",
+    date: "October 17th, 2025",
+    story: "The 10 minutes of heaven. The surprise visit to Delhi was nothing short of magical. Seeing your face light up when you saw me was priceless. Those brief moments we shared are etched in my heart forever. The snickers kept me alive after you went icl.",
+    image: Oct17Image,
   },
   {
-    title: "Forever Starts Now",
-    date: "Every Day Together",
-    story: "Every moment with you is a page in our never-ending love story. You're my best friend, my partner, my everything. Here's to countless more chapters, my love.",
-    spicy: "The way you look at me still gives me butterflies. Every touch is electric. Every kiss leaves me wanting more. You're intoxicating, addictive, and absolutely mine... 💕",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
+    title: "Delhi 2.0",
+    date: "October 24th, 2025",
+    story: "I'm glad my cousin caught us, giving birth to another story of Us. What was supposed to be a street-food date turned out to be street-eating-at-random-corners and I loved every second of it. Every moment with you is a page in our never-ending love story.",
+    image: Oct24Image,
+  },  
+  {
+    title: "Surprise Surprise",
+    date: "November 8th, 2025",
+    story: "The event in PU, it was good, wasn't it? That one message about the PU event changed the week. This date was so on-spot deciding everything and it was one of the best ones. Nice sneak-ins we did. And Raman Bedi ne internship de di mujhe CU mai 💀. That was actually magical. We've crossed almost every travel-vehicle-travelling (bus, train, auto, car)",
+    image: Nov8Image,
+  }, 
+  {
+    title: "How do I escape?",
+    date: "November 9th, 2025",
+    story: "All the planning to escape your own college was crazy. But we did it. We had so much up our sleeves but nothing solid enough and at the end the simplest trick worked. Oh, and the VR date later was. Yeah.",
+    image: Nov9Image,
+  }, 
+  {
+    title: "Cold November",
+    date: "November 22nd, 2025",
+    story: "We had to plan this date around your exams and it could've been hectic, but we managed it so well. Another date another VR. We had to make this date work cuz if we didnt, next one would be only a month later. Our plans are crazy. ",
+    image: Nov22Image,
+  }, 
+  {
+    title: "The Big Day",
+    date: "December 12th, 2025",
+    story: "The almost-cancelled date but it worked out in the end. It always does. All the train rushing, train missing, auto-driver feud, Police station, this day was packed. We did so many new things. Our first dinner date, our first maggi date. The entire day was crazy. Need to live it again.",
+    image: Dec12Image,
   },
 ];
 
 const OurDateBook = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [showSpicy, setShowSpicy] = useState<{ [key: number]: boolean }>({});
   const bookRef = useRef<HTMLDivElement>(null);
   const pageFlipRef = useRef<any>(null);
 
@@ -112,9 +140,6 @@ const OurDateBook = () => {
     }
   };
 
-  const toggleSpicy = (index: number) => {
-    setShowSpicy((prev) => ({ ...prev, [index]: !prev[index] }));
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-rose-50 to-pink-100 dark:from-amber-950 dark:via-rose-950 dark:to-pink-950 flex flex-col items-center justify-center p-4 overflow-hidden relative">
@@ -239,29 +264,7 @@ const OurDateBook = () => {
                     {date.date}
                   </p>
                   <p className="mb-3">{date.story}</p>
-                  
-                  <button
-                    onClick={() => toggleSpicy(index)}
-                    className="w-full mt-2 py-2 px-3 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white rounded-lg font-romantic flex items-center justify-center gap-2 transition-all text-sm"
-                  >
-                    <Sparkles className="w-4 h-4" />
-                    {showSpicy[index] ? "Hide" : "Show"} Spicy Version 🔥
-                  </button>
 
-                  <AnimatePresence>
-                    {showSpicy[index] && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="mt-2 p-3 bg-gradient-to-br from-rose-50 to-pink-50 dark:from-rose-950 dark:to-pink-950 rounded-lg border-2 border-rose-300 dark:border-rose-700"
-                      >
-                        <p className="text-sm leading-relaxed font-romantic text-rose-900 dark:text-rose-100">
-                          {date.spicy}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
                 </div>
                 <div className="page-footer">{index + 2}</div>
               </div>

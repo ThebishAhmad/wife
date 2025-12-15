@@ -7,13 +7,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 
 const floors = [
-  { number: 7, name: "Our Future Together", message: "A home filled with laughter, kids running around, and us still holding hands at sunset." },
-  { number: 6, name: "The Day I Knew", message: "The moment I realized I wanted to spend forever with you — your laugh, your smile, everything clicked." },
-  { number: 5, name: "Anniversary Magic", message: "Our anniversary, candles lit, your eyes glowing with love, and my heart completely yours." },
-  { number: 4, name: "First Kiss", message: "Under the stars, nervous heartbeat, soft lips meeting mine — time stood still." },
-  { number: 3, name: "Unnati's Laugh", message: "The sound that makes everything better, the melody that plays on repeat in my heart." },
-  { number: 2, name: "First Date", message: "Nervous smiles, stolen glances, and the beginning of our forever story." },
-  { number: 1, name: "First Hello", message: "The day our paths crossed and my world changed forever — hello, my love." },
+  { number: 5, name: "Entire Life Ahead", message: "I do not care if we stay on the same floor forever, we're together is all that matters." },
+  { number: 4, name: "6 Months Anniversary", message: "It is unbelievable to see how far we've come. Day by day we've crossed a lot on our bucket list" },
+  { number: 3, name: "First drinking fountain", message: "Do I need to explain?" },
+  { number: 2, name: "Anniversary Magic", message: "Our anniversary, candles lit, your eyes glowing with love, and my heart completely yours." },
+  { number: 1, name: "First Date", message: "The impossible happening right infront of our eyes. Couldn't ask for more." },
+  { number: "LB1", name: "Second Hello", message: "Second Hello, same day? Nice story we've always had." },
+  { number: "LB2", name: "First Hello", message: "The day our paths crossed and my world changed forever, hello, my love." },
 ];
 
 const MemoryElevator = () => {
@@ -40,8 +40,8 @@ const MemoryElevator = () => {
         // Fun overweight warning
         if (randomWeight > 170) {
           setTimeout(() => {
-            toast("⚠️ Weight Limit Warning", {
-              description: "Just kidding! You're perfect just the way you are 💕",
+            toast("CCTV Recording 📹", {
+              description: "Kidding. What happens in the lift, stays in the lift.",
             });
           }, 2000);
         }
@@ -121,13 +121,13 @@ const MemoryElevator = () => {
 
   const handleEmergency = () => {
     toast("🚨 Emergency button pressed!", {
-      description: "Just kidding! There's no emergency in our love story 💕",
+      description: "Sike. There's no emergency in our love story",
     });
   };
 
   const handlePhone = () => {
-    toast("📞 Calling...", {
-      description: "Hello? Yes, I'm stuck in an elevator... stuck thinking about you! 💕",
+    toast("Calling.", {
+      description: "Hello? Yes, I'm stuck in an elevator, stuck thinking about you! 💕",
     });
   };
 
@@ -389,7 +389,7 @@ const MemoryElevator = () => {
                   <h2 className="text-2xl font-bold text-amber-900">Official Certificate</h2>
                   <div className="text-amber-800 space-y-2">
                     <p className="text-sm">This Love Elevator has been certified by:</p>
-                    <p className="text-xl font-elegant font-bold">The Department of Eternal Romance</p>
+                    <p className="text-xl font-elegant font-bold">The Department of Eternal Love</p>
                     <p className="text-xs mt-4 border-t border-amber-300 pt-4">
                       Inspected: Forever Ago<br />
                       Next Inspection: Never (Perfect as is)<br />

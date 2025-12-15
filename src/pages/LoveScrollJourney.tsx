@@ -6,6 +6,24 @@ import {
   TextRevealCardTitle,
 } from "@/components/ui/text-reveal-card";
 
+import img102 from "../assets/IMG-20251213-WA0104.jpg";
+import img103 from "../assets/IMG-20251213-WA0115.jpg";
+import img104 from "../assets/IMG-20251213-WA0119.jpg";
+import img105 from "../assets/IMG-20251213-WA0129.jpg";
+import img106 from "../assets/IMG-20251213-WA0163.jpg";
+import img107 from "../assets/IMG-20251213-WA0164.jpg";
+import img108 from "../assets/IMG-20251213-WA0167.jpg";
+import img109 from "../assets/IMG-20251214-WA0046.jpg";
+import img110 from "../assets/IMG-20251214-WA0108.jpg";
+import img111 from "../assets/IMG-20251214-WA0177.jpg";
+import img112 from "../assets/IMG-20251214-WA0214~2.jpg"; // Note: Special character ~2
+import img113 from "../assets/IMG-20251215-WA0000.jpg";
+import img114 from "../assets/IMG-20251215-WA0001.jpg";
+import img115 from "../assets/IMG-20251215-WA0005.jpg";
+import img116 from "../assets/IMG-20251215-WA0006.jpg";
+import img117 from "../assets/IMG-20251215-WA0008.jpg";
+import img118 from "../assets/IMG-20251215-WA0097.jpg";
+
 export default function LoveScrollJourney() {
   return (
     <ReactLenis root>
@@ -36,10 +54,10 @@ export default function LoveScrollJourney() {
                 revealText="You are my everything ❤️"
               >
                 <TextRevealCardTitle>
-                  Hover to reveal my feelings...
+                  Hover to reveal my autism
                 </TextRevealCardTitle>
                 <TextRevealCardDescription>
-                  Move your cursor across the card to see how much you mean to me.
+                  Move your cursor across the card.
                 </TextRevealCardDescription>
               </TextRevealCard>
             </div>
@@ -58,28 +76,28 @@ export default function LoveScrollJourney() {
             <div className='grid gap-2'>
               <figure className='grid place-content-center -skew-x-12'>
                 <img
-                  src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500&auto=format&fit=crop'
+                  src={img102}
                   alt='Love moment 1'
                   className='transition-all duration-300 w-80 h-96 align-bottom object-cover'
                 />
               </figure>
               <figure className='grid place-content-center skew-x-12'>
                 <img
-                  src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500&auto=format&fit=crop'
+                  src={img103}
                   alt='Love moment 2'
                   className='transition-all duration-300 w-80 h-96 align-bottom object-cover'
                 />
               </figure>
               <figure className='grid place-content-center -skew-x-12'>
                 <img
-                  src='https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500&auto=format&fit=crop'
+                  src={img104}
                   alt='Love moment 3'
                   className='transition-all duration-300 w-80 h-96 align-bottom object-cover'
                 />
               </figure>
               <figure className='grid place-content-center skew-x-12'>
                 <img
-                  src='https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=500&auto=format&fit=crop'
+                  src={img105}
                   alt='Love moment 4'
                   className='transition-all duration-300 w-80 h-96 align-bottom object-cover'
                 />
@@ -93,28 +111,28 @@ export default function LoveScrollJourney() {
             <div className='grid gap-2'>
               <figure className='sticky top-0 h-screen grid place-content-center'>
                 <img
-                  src='https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=500&auto=format&fit=crop'
+                  src={img106}
                   alt='Special memory 1'
                   className='transition-all duration-300 w-96 h-96 align-bottom object-cover rounded-md'
                 />
               </figure>
               <figure className='sticky top-0 h-screen grid place-content-center'>
                 <img
-                  src='https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=500&auto=format&fit=crop'
+                  src={img107}
                   alt='Special memory 2'
                   className='transition-all duration-300 w-96 h-96 align-bottom object-cover rounded-md'
                 />
               </figure>
               <figure className='sticky top-0 h-screen grid place-content-center'>
                 <img
-                  src='https://images.unsplash.com/photo-1535478044878-3ed83d5456ef?w=500&auto=format&fit=crop'
+                  src={img108}
                   alt='Special memory 3'
                   className='transition-all duration-300 w-96 h-96 align-bottom object-cover rounded-md'
                 />
               </figure>
               <figure className='sticky top-0 h-screen grid place-content-center'>
                 <img
-                  src='https://images.unsplash.com/photo-1516589091380-5d8e87df6999?w=500&auto=format&fit=crop'
+                  src={img109}
                   alt='Special memory 4'
                   className='transition-all duration-300 w-96 h-96 align-bottom object-cover rounded-md'
                 />

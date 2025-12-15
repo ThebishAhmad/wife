@@ -8,27 +8,35 @@ import { X } from "lucide-react";
 // ----------------------------------------------------------------------
 
 // --- October Memories ---
-import img1 from "@/assets/IMG-20251002-WA0074.jpg";
-import img2 from "@/assets/IMG-20251004-WA0049.jpg";
-import img3 from "@/assets/IMG-20251006-WA0003.jpg";
-import img4 from "@/assets/IMG-20251006-WA0077.jpg";
-import img5 from "@/assets/IMG-20251017-WA0008.jpg";
-import img6 from "@/assets/IMG-20251017-WA0049.jpg";
-import img7 from "@/assets/IMG-20251017-WA0117.jpg";
-import img8 from "@/assets/IMG-20251019-WA0033.jpg";
-import img9 from "@/assets/IMG-20251021-WA0052.jpg";
-import img10 from "@/assets/IMG-20251021-WA0055.jpg";
-import img11 from "@/assets/IMG-20251024-WA0065.jpg";
-import img12 from "@/assets/IMG-20251024-WA0076.jpg";
-
-// --- November Memories ---
-import img13 from "@/assets/IMG-20251103-WA0650.jpg";
-import img14 from "@/assets/IMG-20251109-WA0140.jpg";
-import img15 from "@/assets/IMG-20251109-WA0167.jpg";
-import img16 from "@/assets/IMG-20251112-WA0023.jpg";
-import img17 from "@/assets/IMG-20251114-WA0024.jpg";
-import img18 from "@/assets/IMG-20251129-WA0022.jpg";
-import img19 from "@/assets/IMG-20251129-WA0023.jpg";
+import img1 from "@/assets/IMG-20250517-WA0031.jpg";
+import img2 from "@/assets/IMG-20250520-WA0032.jpg";
+import img3 from "@/assets/IMG-20250521-WA0003.jpg";
+import img4 from "@/assets/IMG-20250522-WA0012.jpg";
+import img5 from "@/assets/IMG-20250527-WA0010.jpg";
+import img6 from "@/assets/IMG-20250527-WA0011.jpg";
+import img7 from "@/assets/IMG-20250528-WA0006.jpg";
+import img8 from "@/assets/IMG-20250529-WA0003.jpg";
+import img9 from "@/assets/IMG-20250531-WA0011.jpg";
+import img10 from "@/assets/IMG-20250615-WA0024.jpg";
+import img11 from "@/assets/IMG-20250702-WA0023.jpg";
+import img12 from "@/assets/IMG-20250703-WA0043.jpg";
+import img13 from "@/assets/IMG-20250705-WA0040.jpg";
+import img14 from "@/assets/IMG-20250705-WA0041.jpg";
+import img15 from "@/assets/IMG-20250713-WA0003.jpg";
+import img16 from "@/assets/IMG-20250716-WA0001.jpg";
+import img17 from "@/assets/IMG-20250725-WA0038.jpg";
+import img18 from "@/assets/IMG-20250725-WA0042.jpg";
+import img19 from "@/assets/IMG-20250726-WA0053.jpg";
+import img20 from "@/assets/IMG-20250726-WA0057.jpg";
+import img21 from "@/assets/IMG-20250730-WA0033.jpg";
+import img22 from "@/assets/IMG-20250730-WA0036.jpg";
+import img23 from "@/assets/IMG-20250731-WA0024.jpg";
+import img24 from "@/assets/IMG-20250731-WA0028.jpg";
+import img25 from "@/assets/IMG-20250806-WA0003.jpg";
+import img26 from "@/assets/IMG-20250806-WA0006.jpg";
+import img27 from "@/assets/IMG-20250809-WA0014.jpg";
+import img28 from "@/assets/IMG-20250809-WA0015.jpg";
+import img29 from "@/assets/IMG-20250812-WA0039.jpg";
 
 // --- Motion Photos / Special Moments ---
 import motion1 from "@/assets/motion_photo_262707953646964220.jpg";

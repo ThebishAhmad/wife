@@ -1,318 +1,320 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, useMemo, Suspense } from "react";
 import { Link } from "react-router-dom";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Text, Float, Environment, Sparkles as DreiSparkles, PerspectiveCamera, Stars } from "@react-three/drei";
+import * as THREE from "three";
+import { ArrowLeft, Play, RotateCcw, Heart, Zap, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { ArrowLeft, Heart, Sparkles, Star, Lock, Activity, Trophy, MessageSquare } from "lucide-react";
-import VaporizeTextCycle, { Tag } from "@/components/ui/vapour-text-effect";
-import { MagnetizeButton } from "@/components/ui/magnetize-button";
+import { toast } from "sonner";
 
-interface Milestone {
-  id: number;
-  title: string;
-  date: string;
-  description: string;
-  emoji: string;
-}
+// --- GAME CONFIG ---
+const ROWS = 5;
+const COLS = 8;
+const ENEMY_SPACING_X = 1.5;
+const ENEMY_SPACING_Y = 1.2;
+const BULLET_SPEED = 15;
+const PLAYER_SPEED = 10;
+const FIRE_RATE = 0.2; // seconds
 
-interface Memory {
-  id: number;
-  title: string;
-  content: string;
-  date: string;
-}
+// --- UTILS ---
+const tempObj = new THREE.Object3D();
+const tempVec = new THREE.Vector3();
 
-interface Secret {
-  id: number;
-  message: string;
-  unlocked: boolean;
-  requiredEnergy: number;
-}
+// --- COMPONENTS ---
 
-const QuantumPlayground = () => {
-  const [thoughtIndex, setThoughtIndex] = useState(0);
-  const [loveEnergy, setLoveEnergy] = useState(0);
-  const [pulseIntensity, setPulseIntensity] = useState(50);
-  const [selectedMilestone, setSelectedMilestone] = useState<Milestone | null>(null);
-  const [selectedMemory, setSelectedMemory] = useState<Memory | null>(null);
-  const [secrets, setSecrets] = useState<Secret[]>([
-    { id: 1, message: "The first time I saw you, time stopped. Everything else faded away.", unlocked: false, requiredEnergy: 10 },
-    { id: 2, message: "Your laugh is my favorite sound in the entire universe.", unlocked: false, requiredEnergy: 25 },
-    { id: 3, message: "I love the way you scrunch your nose when you're thinking hard.", unlocked: false, requiredEnergy: 50 },
-    { id: 4, message: "Every day with you feels like coming home.", unlocked: false, requiredEnergy: 75 },
-    { id: 5, message: "You're not just my love - you're my best friend, my adventure, my everything.", unlocked: false, requiredEnergy: 100 },
-    { id: 6, message: "Your smile has the power to light up even my darkest days.", unlocked: false, requiredEnergy: 150 },
-    { id: 7, message: "I could listen to you talk about your dreams for hours and never get bored.", unlocked: false, requiredEnergy: 200 },
-    { id: 8, message: "The way you hold my hand makes me feel like I can conquer the world.", unlocked: false, requiredEnergy: 250 },
-    { id: 9, message: "You've taught me what it truly means to love and be loved unconditionally.", unlocked: false, requiredEnergy: 300 },
-    { id: 10, message: "In a universe of infinite possibilities, finding you was my greatest fortune.", unlocked: false, requiredEnergy: 500 },
-  ]);
+// --- MAIN GAME LOGIC (Single System for Performance) ---
+const InvadersGame = ({ gameState, setGameState, setScore, setLives }: any) => {
+  const { mouse, viewport } = useThree();
 
-  const loveThoughts = [
-    ["Every", "Moment", "Together"],
-    ["Love", "Grows", "Stronger"],
-    ["Hearts", "Beat", "As One"],
-    ["Forever", "And", "Always"],
-    ["Our", "Love", "Story"],
-  ];
+  // REFS FOR STATE (No Re-renders)
+  const playerRef = useRef<THREE.Group>(null);
+  const enemiesRef = useRef<THREE.InstancedMesh>(null);
+  const bulletsRef = useRef<THREE.InstancedMesh>(null);
 
-  const milestones: Milestone[] = [
-    { id: 1, title: "First Message", date: "Day 1", description: "The moment our story began with a simple hello", emoji: "💌" },
-    { id: 2, title: "First Date", date: "Week 2", description: "Coffee, nervous laughter, and stolen glances", emoji: "☕" },
-    { id: 3, title: "First Kiss", date: "Month 1", description: "Under the stars, time stood still", emoji: "💋" },
-    { id: 4, title: "Said I Love You", date: "Month 3", description: "Three words that changed everything", emoji: "❤️" },
-    { id: 5, title: "This Website", date: "Today", description: "Created this quantum space of love for us", emoji: "🌌" },
-  ];
+  // GAME DATA
+  const gameData = useRef({
+    lastFire: 0,
+    enemies: [] as { x: number, y: number, alive: boolean, direction: number }[],
+    bullets: [] as { x: number, y: number, active: boolean, velocity: number }[],
+    enemySpeed: 1,
+    enemyDirection: 1, // 1 = right, -1 = left
+    playerPos: new THREE.Vector3(),
+  });
 
-  const memoryJar: Memory[] = [
-    { id: 1, title: "Stargazing Night", content: "We laid under the stars and you said constellations look like they're dancing", date: "Summer 2024" },
-    { id: 2, title: "Rainy Day Dance", content: "Dancing in the rain without music, just us and the rhythm of raindrops", date: "Fall 2024" },
-    { id: 3, title: "Breakfast Surprise", content: "You made me pancakes shaped like hearts (even the burnt ones were perfect)", date: "Winter 2024" },
-    { id: 4, title: "Late Night Talk", content: "We talked until 4 AM about everything and nothing", date: "Spring 2025" },
-  ];
+  // INITIALIZE
+  useEffect(() => {
+    if (gameState === 'playing') {
+      // Init Enemies
+      const enemies = [];
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          enemies.push({
+            x: (c - COLS / 2) * ENEMY_SPACING_X + 0.5,
+            y: (r * ENEMY_SPACING_Y) + 5,
+            alive: true,
+            direction: 1
+          });
+        }
+      }
+      gameData.current.enemies = enemies;
 
-  const handleHeartClick = () => {
-    const newEnergy = loveEnergy + 1;
-    setLoveEnergy(newEnergy);
-    setThoughtIndex((thoughtIndex + 1) % loveThoughts.length);
-    
-    // Unlock secrets based on energy
-    setSecrets(secrets.map(secret => 
-      secret.requiredEnergy <= newEnergy ? { ...secret, unlocked: true } : secret
-    ));
+      // Init Bullets Pool
+      gameData.current.bullets = Array(50).fill(0).map(() => ({ x: 0, y: 0, active: false, velocity: 0 }));
+      gameData.current.enemySpeed = 1;
+    }
+  }, [gameState]);
 
-    // Increase pulse when clicking heart
-    setPulseIntensity(Math.min(100, pulseIntensity + 5));
-  };
+  useFrame((state, delta) => {
+    if (gameState !== 'playing') return;
+    const now = state.clock.elapsedTime;
+    const data = gameData.current;
 
-  const handlePulseClick = () => {
-    setPulseIntensity(Math.min(100, pulseIntensity + 10));
-    setTimeout(() => setPulseIntensity(50), 2000);
+    // 1. PLAYER MOVEMENT
+    if (playerRef.current) {
+      const targetX = (mouse.x * viewport.width) / 2;
+      playerRef.current.position.x = THREE.MathUtils.lerp(playerRef.current.position.x, targetX, delta * 10);
+      // Clamp
+      playerRef.current.position.x = Math.max(-8, Math.min(8, playerRef.current.position.x));
+      data.playerPos.copy(playerRef.current.position);
+    }
+
+    // 2. AUTO FIRE
+    if (now - data.lastFire > FIRE_RATE) {
+      data.lastFire = now;
+      // Find inactive bullet
+      const bullet = data.bullets.find(b => !b.active);
+      if (bullet) {
+        bullet.active = true;
+        bullet.x = data.playerPos.x;
+        bullet.y = data.playerPos.y + 1;
+        bullet.velocity = BULLET_SPEED;
+      }
+    }
+
+    // 3. BULLET UPDATE
+    if (bulletsRef.current) {
+      let activeCount = 0;
+      data.bullets.forEach((b, i) => {
+        if (b.active) {
+          b.y += b.velocity * delta;
+
+          // Collision Check with Enemies
+          let hit = false;
+          data.enemies.forEach(e => {
+            if (e.alive && !hit) {
+              const dx = b.x - e.x;
+              const dy = b.y - e.y;
+              if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+                e.alive = false;
+                b.active = false;
+                hit = true;
+                setScore((s: number) => s + 100);
+                // Speed up slightly
+                data.enemySpeed += 0.05;
+              }
+            }
+          });
+
+          // Bounds Check
+          if (b.y > 10) b.active = false;
+
+          // Render
+          if (b.active) {
+            tempObj.position.set(b.x, b.y, 0);
+            tempObj.updateMatrix();
+            bulletsRef.current!.setMatrixAt(i, tempObj.matrix);
+            activeCount++;
+          } else {
+            // Hide
+            tempObj.position.set(0, 0, 0);
+            tempObj.scale.set(0, 0, 0);
+            tempObj.updateMatrix();
+            bulletsRef.current!.setMatrixAt(i, tempObj.matrix);
+            tempObj.scale.set(1, 1, 1); // Reset
+          }
+        } else {
+          // Ensure hidden
+          tempObj.position.set(0, 0, 0);
+          tempObj.scale.set(0, 0, 0);
+          tempObj.updateMatrix();
+          bulletsRef.current!.setMatrixAt(i, tempObj.matrix);
+          tempObj.scale.set(1, 1, 1);
+        }
+      });
+      bulletsRef.current.instanceMatrix.needsUpdate = true;
+    }
+
+    // 4. ENEMY UPDATE
+    if (enemiesRef.current) {
+      let livingCount = 0;
+      let hitEdge = false;
+
+      // Move block
+      const moveStep = data.enemySpeed * delta * data.enemyDirection;
+
+      data.enemies.forEach((e, i) => {
+        if (e.alive) {
+          livingCount++;
+          e.x += moveStep;
+
+          // Check Edge
+          if (e.x > 8 || e.x < -8) hitEdge = true;
+
+          // Render
+          tempObj.position.set(e.x, e.y, 0);
+          // Bobbing
+          tempObj.position.y += Math.sin(now * 2 + e.x) * 0.005;
+          tempObj.rotation.z = Math.sin(now * 5) * 0.1;
+
+          tempObj.updateMatrix();
+          enemiesRef.current!.setMatrixAt(i, tempObj.matrix);
+        } else {
+          tempObj.scale.set(0, 0, 0);
+          tempObj.updateMatrix();
+          enemiesRef.current!.setMatrixAt(i, tempObj.matrix);
+          tempObj.scale.set(1, 1, 1);
+        }
+      });
+      enemiesRef.current.instanceMatrix.needsUpdate = true;
+
+      // Handle Edge Bounce & Descent
+      if (hitEdge) {
+        data.enemyDirection *= -1;
+        data.enemies.forEach(e => {
+          e.y -= 0.5; // Drop down
+          if (e.alive && e.y < -5) { // Reached bottom
+            setGameState('gameover');
+          }
+        });
+      }
+
+      if (livingCount === 0) {
+        // Win / Next Wave logic (just reset grid but faster for minimal mvp)
+        toast.success("WAVE CLEARED! Speed Up!");
+        setScore((s: number) => s + 1000);
+        // Respawn
+        data.enemies.forEach((e, i) => {
+          const r = Math.floor(i / COLS);
+          const c = i % COLS;
+          e.alive = true;
+          e.x = (c - COLS / 2) * ENEMY_SPACING_X + 0.5;
+          e.y = (r * ENEMY_SPACING_Y) + 5;
+        });
+        data.enemySpeed += 0.5;
+      }
+    }
+  });
+
+  return (
+    <group>
+      {/* Player */}
+      <group ref={playerRef} position={[0, -6, 0]}>
+        <mesh rotation={[Math.PI, 0, 0]} scale={0.5}>
+          {/* Heart Shape Extrusion (Manual for performance/simplicity) */}
+          <coneGeometry args={[1, 2, 4]} />
+          <meshStandardMaterial color="#ec4899" emissive="#ec4899" emissiveIntensity={2} />
+        </mesh>
+        <DreiSparkles position={[0, -1, 0]} count={10} color="cyan" scale={2} speed={5} />
+      </group>
+
+      {/* Bullets */}
+      <instancedMesh ref={bulletsRef} args={[undefined, undefined, 50]}>
+        <capsuleGeometry args={[0.1, 0.5, 4, 8]} />
+        <meshBasicMaterial color="#00ffff" />
+      </instancedMesh>
+
+      {/* Enemies */}
+      <instancedMesh ref={enemiesRef} args={[undefined, undefined, ROWS * COLS]}>
+        <boxGeometry args={[0.8, 0.6, 0.5]} />
+        <meshStandardMaterial color="#ef4444" emissive="#7f1d1d" emissiveIntensity={0.5} roughness={0.2} metalness={0.8} />
+      </instancedMesh>
+    </group>
+  );
+};
+
+// --- MAIN PAGE ---
+
+const LoveInvaders = () => {
+  const [gameState, setGameState] = useState<'menu' | 'playing' | 'gameover'>('menu');
+  const [score, setScore] = useState(0);
+  const [lives, setLives] = useState(3);
+
+  const startGame = () => {
+    setScore(0);
+    setLives(3);
+    setGameState('playing');
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-950 via-pink-950 to-purple-900 text-white overflow-hidden">
-      <Link to="/universe">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-4 left-4 z-50 text-white hover:bg-white/10"
-        >
-          <ArrowLeft className="h-6 w-6" />
-        </Button>
-      </Link>
+    <div className="w-full h-screen bg-[#020617] relative overflow-hidden font-mono cursor-none">
 
-      <div className="absolute top-4 right-4 z-50 flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-        <Heart className="h-4 w-4 text-pink-400 fill-pink-400 animate-pulse" />
-        <span className="text-sm font-medium">Love Energy: {loveEnergy}</span>
-      </div>
+      {/* UI LAYER */}
+      <div className="absolute inset-0 z-50 pointer-events-none">
+        <Link to="/universe" className="pointer-events-auto absolute top-4 left-4">
+          <Button variant="ghost" className="text-white hover:bg-white/10">
+            <ArrowLeft className="mr-2 h-4 w-4" /> Exit Cockpit
+          </Button>
+        </Link>
 
-      <div className="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-screen gap-12">
-        <div className="text-center space-y-4 animate-fade-in">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-pink-400 via-rose-400 to-purple-400 bg-clip-text text-transparent">
-            Love Energy Portal
-          </h1>
-          <p className="text-lg text-white/70">
-            Watch our love story vaporize and materialize
+        <div className="absolute top-4 right-4 text-right">
+          <p className="text-4xl font-bold text-cyan-400 drop-shadow-[0_0_5px_cyan]">
+            SCORE: {score}
           </p>
         </div>
 
-        <div className="w-full max-w-4xl h-64 relative">
-          <VaporizeTextCycle
-            texts={loveThoughts[thoughtIndex]}
-            font={{
-              fontFamily: "Inter, sans-serif",
-              fontSize: "80px",
-              fontWeight: 700,
-            }}
-            color="rgb(255, 182, 193)"
-            spread={7}
-            density={6}
-            animation={{
-              vaporizeDuration: 2.5,
-              fadeInDuration: 1.2,
-              waitDuration: 0.8,
-            }}
-            direction="left-to-right"
-            alignment="center"
-            tag={Tag.H1}
-          />
-        </div>
-
-        {/* Main interactive sections */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl">
-          {/* Milestones */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-            <div className="flex items-center gap-3 mb-4">
-              <Trophy className="w-6 h-6 text-yellow-400" />
-              <h3 className="text-2xl font-bold">Our Milestones</h3>
-            </div>
-            <div className="space-y-3">
-              {milestones.map((milestone) => (
-                <button
-                  key={milestone.id}
-                  onClick={() => setSelectedMilestone(milestone)}
-                  className="w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition-all border border-white/10 hover:border-pink-500/50"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl">{milestone.emoji}</span>
-                    <div>
-                      <p className="font-semibold">{milestone.title}</p>
-                      <p className="text-sm text-white/60">{milestone.date}</p>
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Memory Jar */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-            <div className="flex items-center gap-3 mb-4">
-              <Sparkles className="w-6 h-6 text-rose-400" />
-              <h3 className="text-2xl font-bold">Memory Jar</h3>
-            </div>
-            <div className="space-y-3">
-              {memoryJar.map((memory) => (
-                <button
-                  key={memory.id}
-                  onClick={() => setSelectedMemory(memory)}
-                  className="w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition-all border border-white/10 hover:border-rose-500/50"
-                >
-                  <p className="font-semibold">{memory.title}</p>
-                  <p className="text-sm text-white/60">{memory.date}</p>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Secret Messages */}
-        <div className="w-full max-w-5xl bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-          <div className="flex items-center gap-3 mb-4">
-            <MessageSquare className="w-6 h-6 text-purple-400" />
-            <h3 className="text-2xl font-bold">Secret Messages</h3>
-            <p className="text-sm text-white/60">(Unlock with Love Energy)</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {secrets.map((secret) => (
-              <div
-                key={secret.id}
-                className={`p-4 rounded-lg border transition-all ${
-                  secret.unlocked
-                    ? 'bg-gradient-to-br from-pink-500/20 to-purple-500/20 border-pink-500/50 animate-fade-in'
-                    : 'bg-white/5 border-white/10'
-                }`}
-              >
-                {secret.unlocked ? (
-                  <div className="space-y-2">
-                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    <p className="text-sm italic">{secret.message}</p>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center gap-2 py-4">
-                    <Lock className="w-5 h-5 text-white/40" />
-                    <p className="text-sm text-white/60">Requires {secret.requiredEnergy} energy</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Love Pulse Monitor */}
-        <div className="w-full max-w-5xl bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-          <div className="flex items-center gap-3 mb-4">
-            <Activity className="w-6 h-6 text-red-400" />
-            <h3 className="text-2xl font-bold">Love Pulse Monitor</h3>
-          </div>
-          <div className="flex items-center justify-center gap-8">
-            <div className="relative">
-              <div 
-                className="w-32 h-32 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center transition-all duration-300"
-                style={{ 
-                  transform: `scale(${1 + pulseIntensity / 200})`,
-                  boxShadow: `0 0 ${pulseIntensity}px rgba(244, 114, 182, 0.8)`
-                }}
-              >
-                <Heart className="w-16 h-16 text-white fill-white animate-pulse" />
-              </div>
-            </div>
-            <div className="text-center">
-              <p className="text-4xl font-bold mb-2">{pulseIntensity}%</p>
-              <p className="text-white/70 mb-4">Pulse Intensity</p>
-              <Button
-                onClick={handlePulseClick}
-                className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600"
-              >
-                Send Love Pulse 💓
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Main energy button */}
-        <div className="flex flex-col items-center gap-6">
-          <p className="text-white/60 text-sm">Click to amplify our love</p>
-          <MagnetizeButton
-            particleCount={16}
-            attractRadius={60}
-            onClick={handleHeartClick}
-            className="text-lg px-8 py-6 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 border-pink-400"
-          >
-            {loveEnergy === 0 ? "Feel The Love" : `Love: ${loveEnergy} ❤️`}
-          </MagnetizeButton>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-2xl">
-          {[...Array(4)].map((_, i) => (
-            <MagnetizeButton
-              key={i}
-              particleCount={8}
-              className="w-full bg-gradient-to-r from-pink-500/20 to-rose-500/20 hover:from-pink-500/30 hover:to-rose-500/30 border-pink-400/50"
-              onClick={() => setLoveEnergy(loveEnergy + 1)}
+        {gameState === 'menu' && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm pointer-events-auto cursor-default">
+            <h1 className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-cyan-500 mb-6 drop-shadow-2xl animate-pulse">
+              LOVE INVADERS
+            </h1>
+            <p className="text-xl text-white/70 mb-8 max-w-md text-center">
+              Defend the Heart Base from the descending Glooms.<br />
+              Mouse to move. Auto-fire engaged.
+            </p>
+            <Button
+              onClick={startGame}
+              className="bg-cyan-600 hover:bg-cyan-500 text-white text-2xl px-12 py-8 rounded-none border-2 border-cyan-400 shadow-[0_0_20px_cyan]"
             >
-              +1 ❤️
-            </MagnetizeButton>
-          ))}
-        </div>
+              <Play className="mr-3 h-6 w-6" /> LAUNCH MISSION
+            </Button>
+          </div>
+        )}
+
+        {gameState === 'gameover' && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-red-900/60 backdrop-blur-md pointer-events-auto cursor-default">
+            <h2 className="text-5xl font-bold text-red-500 mb-4">BASE OVERRUN</h2>
+            <p className="text-3xl text-white mb-6">Final Score: {score}</p>
+            <Button
+              onClick={startGame}
+              className="bg-white text-black hover:bg-gray-200 text-xl px-10 py-6"
+            >
+              <RotateCcw className="mr-2 h-5 w-5" /> REBOOT SYSTEM
+            </Button>
+          </div>
+        )}
       </div>
 
-      {/* Milestone Dialog */}
-      <Dialog open={!!selectedMilestone} onOpenChange={() => setSelectedMilestone(null)}>
-        <DialogContent className="bg-gradient-to-br from-pink-900 to-purple-900 text-white border-pink-500/50">
-          <DialogHeader>
-            <DialogTitle className="text-3xl flex items-center gap-3">
-              <span className="text-4xl">{selectedMilestone?.emoji}</span>
-              {selectedMilestone?.title}
-            </DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <p className="text-lg text-white/90">{selectedMilestone?.description}</p>
-            <p className="text-sm text-pink-300">{selectedMilestone?.date}</p>
-          </div>
-        </DialogContent>
-      </Dialog>
+      {/* 3D SCENE */}
+      <Canvas shadows gl={{ antialias: false }}>
+        <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={60} />
+        <color attach="background" args={['#020617']} />
+        <ambientLight intensity={0.2} />
+        <pointLight position={[10, 10, 10]} intensity={1} color="purple" />
+        <pointLight position={[-10, 10, 10]} intensity={1} color="pink" />
 
-      {/* Memory Dialog */}
-      <Dialog open={!!selectedMemory} onOpenChange={() => setSelectedMemory(null)}>
-        <DialogContent className="bg-gradient-to-br from-rose-900 to-pink-900 text-white border-rose-500/50">
-          <DialogHeader>
-            <DialogTitle className="text-3xl">{selectedMemory?.title}</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <p className="text-lg text-white/90 italic">{selectedMemory?.content}</p>
-            <p className="text-sm text-rose-300">{selectedMemory?.date}</p>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-pink-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-rose-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-      </div>
+        <Suspense fallback={null}>
+          <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
+          <InvadersGame
+            gameState={gameState}
+            setGameState={setGameState}
+            setScore={setScore}
+            setLives={setLives}
+          />
+          <Environment preset="night" />
+        </Suspense>
+      </Canvas>
     </div>
   );
 };
 
-export default QuantumPlayground;
+export default LoveInvaders;

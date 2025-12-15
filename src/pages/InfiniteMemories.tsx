@@ -63,12 +63,59 @@ import portraitImage48 from "@/assets/motion_photo_4744201707851581888.jpg";
 import portraitImage49 from "@/assets/motion_photo_8866333217215376955.jpg";
 import portraitImage50 from "@/assets/motion_photo_8964294221475292857.jpg";
 
+// --- Continuation from img119 to img123 (from image_b723c8.png) ---
+import img119 from "../assets/IMG-20251109-WA0143.jpg";
+import img120 from "../assets/IMG-20251109-WA0144.jpg";
+import img121 from "../assets/IMG-20251109-WA0155.jpg";
+import img122 from "../assets/IMG-20251109-WA0156.jpg";
+import img123 from "../assets/IMG-20251109-WA0164.jpg";
+
+// --- Continuation from img124 to img133 (from image_b723e5.png) ---
+import img124 from "../assets/IMG-20251109-WA0169.jpg";
+import img125 from "../assets/IMG-20251109-WA0181.jpg";
+import img126 from "../assets/IMG-20251109-WA0188.jpg";
+import img127 from "../assets/IMG-20251109-WA0191.jpg";
+import img128 from "../assets/IMG-20251109-WA0194.jpg";
+import img129 from "../assets/IMG-20251109-WA0234.jpg";
+import img130 from "../assets/IMG-20251109-WA0255.jpg";
+import img131 from "../assets/IMG-20251110-WA0051.jpg";
+import img132 from "../assets/IMG-20251110-WA0053.jpg";
+
+// --- Continuation from img134 to img160 (from image_b72403.png) ---
+import img133 from "../assets/IMG-20251116-WA0065.jpg";
+import img134 from "../assets/IMG-20251116-WA0066.jpg";
+import img135 from "../assets/IMG-20251118-WA0004.jpg";
+import img136 from "../assets/IMG-20251118-WA0015.jpg";
+import img137 from "../assets/IMG-20251119-WA0002.jpg";
+import img138 from "../assets/IMG-20251119-WA0003.jpg";
+import img139 from "../assets/IMG-20251121-WA0062.jpg";
+import img141 from "../assets/IMG-20251123-WA0017.jpg";
+import img142 from "../assets/IMG-20251123-WA0041.jpg";
+import img143 from "../assets/IMG-20251123-WA0043.jpg";
+import img144 from "../assets/IMG-20251124-WA0002.jpg";
+import img145 from "../assets/IMG-20251124-WA0003.jpg";
+import img146 from "../assets/IMG-20251124-WA0006.jpg";
+import img147 from "../assets/IMG-20251124-WA0007.jpg";
+import img148 from "../assets/IMG-20251124-WA0008.jpg";
+import img149 from "../assets/IMG-20251124-WA0009.jpg";
+import img150 from "../assets/IMG-20251125-WA0008.jpg";
+import img151 from "../assets/IMG-20251125-WA0010.jpg";
+import img152 from "../assets/IMG-20251125-WA0011.jpg";
+import img153 from "../assets/IMG-20251125-WA0013.jpg";
+import img154 from "../assets/IMG-20251125-WA0052.jpg";
+import img155 from "../assets/IMG-20251125-WA0060.jpg";
+import img156 from "../assets/IMG-20251126-WA0003.jpg";
+import img157 from "../assets/IMG-20251127-WA0025.jpg";
+import img158 from "../assets/IMG-20251129-WA0019.jpg";
+import img159 from "../assets/IMG-20251129-WA0021.jpg";
+
+
 /* ------------------------------------------------------
    Generate Memory Photos (Your 50 portrait images used)
 -------------------------------------------------------*/
 const generateMemoryPhotos = (): MenuItem[] => {
   const images = [
-    portraitImage1, portraitImage2, portraitImage3, portraitImage4, portraitImage5,
+    portraitImage2, portraitImage3, portraitImage4, portraitImage5,
     portraitImage6, portraitImage7, portraitImage8, portraitImage9, portraitImage10,
     portraitImage11, portraitImage12, portraitImage13, portraitImage14, portraitImage15,
     portraitImage16, portraitImage17, portraitImage18, portraitImage19, portraitImage20,
@@ -77,9 +124,9 @@ const generateMemoryPhotos = (): MenuItem[] => {
     portraitImage31, portraitImage32, portraitImage33, portraitImage34, portraitImage35,
     portraitImage36, portraitImage37, portraitImage38, portraitImage39, portraitImage40,
     portraitImage41, portraitImage42, portraitImage43, portraitImage44, portraitImage45,
-    portraitImage46, portraitImage47, portraitImage48, portraitImage49, portraitImage50,
+    portraitImage46, portraitImage47, portraitImage48, portraitImage49, portraitImage50, portraitImage1, img129, img130, img131, img132, img133, img134, img135, img136, img137, img138, img139, img141, img142, img143, img144, img145, img146, img147, img148, img149, img150, img151, img152, img153, img154, img155, img156, img157, img158, img159
   ];
-
+ 
   return images.map((img, i) => ({
     image: img,
     link: "#",

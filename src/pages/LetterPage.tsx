@@ -3,62 +3,62 @@ import { FloatingHearts } from "@/components/FloatingHearts";
 import { Heart, ArrowLeft, Sparkles, Volume2, Play, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useRef } from "react";
-import ourSong from "@/assets/our-song.mp3";
+import ourSong from "@/assets/happybirthday.mp3";
 
 const letterContent: Record<string, { title: string; message: string; surprise: string; quote: string }> = {
   h: {
-    title: "How could I ever explain...",
-    message: "How could I ever explain what you mean to me? You're not just a part of my life — you ARE my life. Every heartbeat whispers your name, every breath carries thoughts of you. The way you smile lights up my entire world, and the sound of your laughter is my favorite melody. You've taught me what it means to truly love someone, to care so deeply that their happiness becomes more important than your own. How blessed am I to have found someone who makes every ordinary moment feel magical?",
-    surprise: "You make my heart race and my soul peaceful all at once 💕",
-    quote: "Home is wherever I'm with you"
+    title: "How could I ever",
+    message: "How could I ever explain what you mean to me? You're not just a part of my life, you are my life. You've been my life ever since we met. Every heartbeat whispers your name, every breath carries thoughts of you. The way you smile lights up my entire world, and the sound of your laugh is my favorite song(yes it's better than the sailor song).",
+    surprise: "You make my heart race and my soul peaceful all at once",
+    quote: "Music Is Slavery (Our first quote)"
   },
   a: {
-    title: "All the stars in the sky...",
-    message: "All the stars in the sky remind me of your eyes — bright, mesmerizing, and full of wonder. When I look at you, I see infinity. I see late-night conversations and early morning coffee. I see adventures waiting to happen and quiet moments of peace. You are absolutely everything I never knew I needed and everything I'll never let go. Your presence in my life has transformed ordinary days into extraordinary memories. Every moment with you feels like a gift I never want to unwrap too quickly because I want it to last forever.",
-    surprise: "Your eyes hold galaxies, and I'm lost in them willingly ✨",
-    quote: "In all the world, there is no heart for me like yours"
+    title: "All my life",
+    message: "All these years I've been living, but now if I look back, there's only one question, was I? Cuz life without U nnati is like a lassi without a pugg, it's like a pug without its loyalty. I'm sure God was preparing my future with you by not letting us meet right as we were born, cuz life with you feels just so easy.",
+    surprise: "Your eyes hold galaxies, and I'm lost in them willingly",
+    quote: "give and take, take and give, he gag and tick, that makes me sick"
   },
   p: {
-    title: "Perhaps destiny knew...",
-    message: "Perhaps destiny knew what it was doing when it brought you to me. Some people say soulmates are rare, but I know I found mine in you. You're my person, my safe space, my greatest adventure. In a world full of temporary things, you are my constant. You've shown me that love isn't just a feeling — it's a choice we make every single day, and I choose you today, tomorrow, and always. Thank you for being patient with my flaws, for celebrating my victories, and for holding my hand through every storm.",
-    surprise: "We were written in the stars long before we met 🌟",
+    title: "plsplspspls be my wife",
+    message: "Thanks. In a world full of temporary things, you are my constant. You've shown me that love isn't just a feeling, it's a choice we make every single day, and I choose you today, tomorrow, and always. 16th December marks the beginning of the year because life started only when you were born. I look forward to 17th December cuz that's another day with The Great Unnati.",
+    surprise: "We're married!",
     quote: "You are my today and all of my tomorrows"
   },
   y: {
-    title: "You are my everything...",
-    message: "You are my sunshine on cloudy days, my anchor in rough seas, my peace in chaos. You've given me a love so pure and beautiful that sometimes I wonder if I'm dreaming. But then you smile at me, and I know this is real — this magical, wonderful, extraordinary thing we share. You inspire me to be better, to dream bigger, to love harder. With you, I've learned that home isn't a place; it's a person. And you, my darling, are my forever home.",
-    surprise: "You make me believe in magic and fairy tales 🧚‍♀️",
-    quote: "Every love story is beautiful, but ours is my favorite"
+    title: "You are my everything",
+    message: "I feel like people don't understand when I say everything, I mean everything. Every breath, every blink, every heartbeat my heart beats, it's for you. With you, I've learned that home isn't a place, it's a person. And you honey buns are that one and only 2 floored candle lit, full of books and mirrors and chandeliers, the perfect apartment.",
+    surprise: "Ngl, your black magic worked. I'm yours forever",
+    quote: "don't be a samosa"
   },
   b: {
-    title: "Beautiful doesn't begin to describe you...",
-    message: "Beautiful doesn't begin to describe you. You're poetry in motion, grace personified, love made tangible. Your beauty radiates from within — from your kind heart, your gentle spirit, your infectious joy. You have this incredible way of making everyone around you feel special, but you make me feel like the luckiest person alive. I love how your eyes crinkle when you laugh, how you scrunch your nose when you're thinking, how you light up when you talk about things you're passionate about. Every detail, every quirk — I'm in love with all of it.",
-    surprise: "Your inner beauty outshines the brightest stars 💫",
-    quote: "You are altogether beautiful, my darling"
+    title: "Be a good-",
+    message: "Thanks again. Chaque fois que tu me regardes, j'oublie ce que je voulais dire. (yes its chatgpt'd itni nai aati abhi 😞) BUTTTTTTTT it's crazy how far we've come, we never knew where we were but now I have the clearest path. It's you. Don't need no Dijkstra for it.",
+    surprise: "Je vous aime",
+    quote: "you're the quote"
   },
   i: {
-    title: "In your arms, I've found my paradise...",
-    message: "In your arms, I've found my paradise — a place where all my worries fade away and nothing else matters but this moment with you. You make me feel safe, cherished, and deeply loved. I love how we can talk about everything and nothing, how silence with you feels comfortable, how your presence alone brings me peace. You've turned my life into the greatest love story I could have ever imagined. Thank you for choosing me, for loving me, for being the incredible person you are.",
-    surprise: "In your embrace, I find my strength and my serenity 🕊️",
-    quote: "In your arms is where I belong"
+    title: "It's impossible to fathom",
+    message: "Is this not crazy? We're both 20 now, oldie. Feels like I've known you for 2 decades, whatever that equates to. Congrats on being stuck for a decade more decades and more to come. I wish you luck, you'll need it 😏",
+    surprise: "Surprise you'll get in 4 days abhi aise hi baitho",
+    quote: "be an inconvenience"
   },
   r: {
     title: "Remember when we first met?",
-    message: "Remember when we first met? I knew right then that you were special. Little did I know you'd become my entire world. Every moment we've shared since then has been a treasure — from silly inside jokes to deep conversations at 2 AM, from adventures in new places to cozy nights at home. You've filled my life with so much laughter, love, and happiness. I find myself falling for you more deeply every single day. You're not just my girlfriend — you're my best friend, my confidant, my greatest blessing.",
-    surprise: "Every memory with you is my favorite memory ❤️",
-    quote: "I fell in love the way you fall asleep: slowly, and then all at once"
+    message: "Remember when we first met? I knew right then that you were special(specially abled(joke)). Little did I know you'd become my entire world. Every moment we've shared since then has been a treasure, from silly inside jokes to deep conversations at 4 AM. From an intense every-second-counts moment to going to a Police station. I find myself falling for you more deeply every single day.",
+    surprise: "The hoodie was the surprise",
+    quote: "raspberry and strawberry all are berries"
   },
   t: {
-    title: "Together, we can conquer anything...",
-    message: "Together, we can conquer anything life throws our way. You make me brave when I'm scared, strong when I'm weak, hopeful when I'm doubtful. Our love is a force that nothing can break. I dream of all the tomorrows we'll share — building a life full of love, laughter, and endless adventures. I want to wake up next to you every morning, hold your hand through every season, and love you more fiercely with each passing year. Thank you for being my partner in this beautiful journey called life.",
-    surprise: "With you by my side, I'm invincible 💪",
-    quote: "Together is my favorite place to be"
+    title: "The best of life we've lived together",
+    message: "I look back at my best memories and all I can think of is us. Us spending normal days together doing normal stuff. I dream of all the tomorrows we'll share, building a life full of love, laughter, and endless adventures. I want to wake up next to you every morning, hold your hand through every season, and love you more fiercely with each passing day.",
+    surprise: "Welcome to my College",
+    quote: "i like bread and butter, you're a good nutter"
   },
   d: {
-    title: "Darling, you deserve the world...",
-    message: "Darling, you deserve the world, and I promise to spend every day trying to give it to you. You deserve all the happiness, all the love, all the beautiful moments life has to offer. I want to be the reason you smile, the one who makes you feel cherished, the person who reminds you every day how extraordinary you are. You've given me so much — your time, your trust, your heart — and I don't take any of it for granted. I will always strive to be worthy of your love and to make you as happy as you make me.",
-    surprise: "You deserve every star in the sky, and I'll keep reaching for them 🌠",
-    quote: "You are my sun, my moon, and all my stars"
+    title: "Dreamy",
+    message: "You are actually dreamy. I keep dreaming about you whether I'm sleeping or not. It's kinda crazy. I feel like Ove how you add colors to my life, wife. You gotta write a book. I'd read it a thousand times over. I'll give you more chapters to add 😏",
+    surprise: "Can't order dominos to your place 😔",
+    quote: "I love Tabish but he loves shitting"
   },
 };
 
@@ -233,7 +233,7 @@ const LetterPage = () => {
           </div>
           <div className="text-center">
             <p className="font-romantic text-sm text-foreground/70 mb-4">
-              Or explore all letters from the beginning...
+              Or explore all letters from the beginning
             </p>
             <Link to="/">
               <Button

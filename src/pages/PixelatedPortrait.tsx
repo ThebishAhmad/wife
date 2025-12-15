@@ -102,10 +102,9 @@ export default function PixelatedPortrait() {
             <div className="space-y-3 p-6 rounded-lg border border-border bg-card/50">
               <h3 className="text-lg font-semibold">How it works</h3>
               <ul className="text-sm text-muted-foreground space-y-2">
-                <li>• The image is converted to a pixelated dot pattern</li>
-                <li>• Hover your mouse to create interactive distortions</li>
-                <li>• Each mode creates a unique movement effect</li>
-                <li>• The effect smoothly follows your cursor</li>
+                <li>• Gorgeous Goose</li>
+                <li>• Nishtha</li>
+                <li>• Unnati Mall</li>
               </ul>
             </div>
           </div>

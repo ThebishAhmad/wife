@@ -6,13 +6,13 @@ import { LetterCard } from "@/components/LetterCard";
 import { EternalCountdown } from "@/components/EternalCountdown";
 import { WelcomePopup } from "@/components/WelcomePopup";
 import { TimeSurprises } from "@/components/TimeSurprises";
-import { Heart, Sparkles, Image, Star, Music, Layout, LogOut, List, Play, Pause } from "lucide-react";
+import { Heart, Sparkles, Image, Star, Music, Layout, LogOut, List, Play, Pause, Hand } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { Dock, DockIcon, DockItem, DockLabel } from "@/components/ui/dock";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import ourSong from "@/assets/our-song.mp3";
+import ourSong from "@/assets/FuckitIloveyou.mp3";
 import LiquidEther from "@/components/ui/LiquidEther";
 
 const Index = () => {
@@ -118,7 +118,7 @@ const Index = () => {
           autoRampDuration={0.4}
         />
       </div>
-      
+
       <div className="relative z-10 container mx-auto px-4 py-12">
         {/* Logout Button */}
         <div className="absolute top-4 right-4 flex gap-2">
@@ -158,9 +158,9 @@ const Index = () => {
           </h1>
 
           <p className="text-lg sm:text-xl font-romantic text-foreground/80 max-w-2xl mx-auto leading-relaxed">
-            Welcome to your magical birthday world, my love. Each letter holds a piece of my heart, 
-            a story of us, and a thousand reasons why you make every day special. 
-            Click on any letter to discover what's inside...
+            Welcome to your magical birthday world, my gorgeous goose. Each letter holds a piece of my heart,
+            a story of us, and a thousand reasons why you make every day special.
+            Click on any letter to discover what's inside
           </p>
         </div>
 
@@ -228,20 +228,17 @@ const Index = () => {
                   borderWidth={2}
                 />
                 <div
-                  className={`relative group h-full rounded-xl p-6 text-center transition-all duration-300 shadow-soft hover:shadow-romantic hover:-translate-y-1 ${
-                    item.special
-                      ? 'bg-gradient-rose-gold border-2 border-rose animate-pulse-glow'
-                      : 'bg-card/60 backdrop-blur-sm hover:bg-card'
-                  }`}
+                  className={`relative group h-full rounded-xl p-6 text-center transition-all duration-300 shadow-soft hover:shadow-romantic hover:-translate-y-1 ${item.special
+                    ? 'bg-gradient-rose-gold border-2 border-rose animate-pulse-glow'
+                    : 'bg-card/60 backdrop-blur-sm hover:bg-card'
+                    }`}
                 >
-                  <div className={`text-5xl mb-3 transition-transform duration-300 ${
-                    item.special ? 'animate-heartbeat' : 'group-hover:scale-110'
-                  }`}>
+                  <div className={`text-5xl mb-3 transition-transform duration-300 ${item.special ? 'animate-heartbeat' : 'group-hover:scale-110'
+                    }`}>
                     {item.emoji}
                   </div>
-                  <h3 className={`text-xl font-elegant font-semibold ${
-                    item.special ? 'text-white' : 'text-foreground'
-                  }`}>
+                  <h3 className={`text-xl font-elegant font-semibold ${item.special ? 'text-white' : 'text-foreground'
+                    }`}>
                     {item.title}
                   </h3>
                 </div>
@@ -275,7 +272,7 @@ const Index = () => {
               </DockIcon>
             </DockItem>
           </Link>
-          
+
           <Link to="/pixelated-portrait">
             <DockItem className='aspect-square rounded-full bg-gradient-to-br from-fuchsia-500 to-pink-500'>
               <DockLabel>Portrait Art</DockLabel>
@@ -284,7 +281,7 @@ const Index = () => {
               </DockIcon>
             </DockItem>
           </Link>
-          
+
           <Link to="/stardust-memories">
             <DockItem className='aspect-square rounded-full bg-gradient-to-br from-purple-500 to-indigo-500'>
               <DockLabel>Stardust Memories</DockLabel>
@@ -293,25 +290,7 @@ const Index = () => {
               </DockIcon>
             </DockItem>
           </Link>
-          
-          <Link to="/heartbeat-symphony">
-            <DockItem className='aspect-square rounded-full bg-gradient-to-br from-rose-500 to-red-500'>
-              <DockLabel>Heartbeat Symphony</DockLabel>
-              <DockIcon>
-                <Music className='h-full w-full text-white' />
-              </DockIcon>
-            </DockItem>
-          </Link>
-          
-          <Link to="/coupons">
-            <DockItem className='aspect-square rounded-full bg-gradient-to-br from-violet-500 to-purple-500'>
-              <DockLabel>Love Coupons</DockLabel>
-              <DockIcon>
-                <Sparkles className='h-full w-full text-white' />
-              </DockIcon>
-            </DockItem>
-          </Link>
-          
+
           <Link to="/hero-parallax">
             <DockItem className='aspect-square rounded-full bg-gradient-to-br from-cyan-500 to-blue-500'>
               <DockLabel>Our Journey</DockLabel>
@@ -326,6 +305,17 @@ const Index = () => {
               <DockLabel>Love Dome 🌹</DockLabel>
               <DockIcon>
                 <Sparkles className='h-full w-full text-white' />
+              </DockIcon>
+            </DockItem>
+          </Link>
+
+
+
+          <Link to="/particles">
+            <DockItem className='aspect-square rounded-full bg-gradient-to-br from-teal-500 to-emerald-500'>
+              <DockLabel>Magic Particles</DockLabel>
+              <DockIcon>
+                <Hand className='h-full w-full text-white' />
               </DockIcon>
             </DockItem>
           </Link>
