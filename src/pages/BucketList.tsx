@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +17,7 @@ interface BucketListItem {
   description: string | null;
   completed: boolean;
   created_at: string;
+  completed_at: string | null;
 }
 
 const BucketList = () => {
@@ -29,7 +31,7 @@ const BucketList = () => {
 
   useEffect(() => {
     checkUser();
-    
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!session) {
         navigate("/auth");
@@ -43,7 +45,7 @@ const BucketList = () => {
 
   const checkUser = async () => {
     const { data: { session } } = await supabase.auth.getSession();
-    
+
     if (!session) {
       navigate("/auth");
       return;
@@ -61,7 +63,7 @@ const BucketList = () => {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setItems(data || []);
+      setItems((data as any) || []);
     } catch (error: any) {
       toast({
         title: "Error",
@@ -75,7 +77,7 @@ const BucketList = () => {
 
   const addItem = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!newTitle.trim()) {
       toast({
         title: "Error",
@@ -115,9 +117,14 @@ const BucketList = () => {
 
   const toggleComplete = async (id: string, completed: boolean) => {
     try {
+      const updates = {
+        completed: !completed,
+        completed_at: !completed ? new Date().toISOString() : null
+      };
+
       const { error } = await supabase
         .from("bucket_list")
-        .update({ completed: !completed })
+        .update(updates as any)
         .eq("id", id);
 
       if (error) throw error;
@@ -139,12 +146,12 @@ const BucketList = () => {
         .eq("id", id);
 
       if (error) throw error;
-      
+
       toast({
         title: "Deleted",
         description: "Item removed from bucket list",
       });
-      
+
       await fetchItems();
     } catch (error: any) {
       toast({
@@ -217,7 +224,7 @@ const BucketList = () => {
           {items.length === 0 ? (
             <Card>
               <CardContent className="py-12 text-center text-gray-500">
-                No items yet. Start adding your dreams! 
+                No items yet. Start adding your dreams!
               </CardContent>
             </Card>
           ) : (
@@ -240,8 +247,13 @@ const BucketList = () => {
                         </p>
                       )}
                       {item.completed && (
-                        <p className="text-xs text-green-600 mt-2">✨ Dream achieved!</p>
+                        <p className="text-xs text-green-600 mt-2">
+                          ✨ Dream achieved! {item.completed_at && `on ${format(new Date(item.completed_at), 'PP p')}`}
+                        </p>
                       )}
+                      <p className="text-xs text-gray-400 mt-1">
+                        Added: {format(new Date(item.created_at), 'PP p')}
+                      </p>
                     </div>
                     <Button
                       variant="ghost"
