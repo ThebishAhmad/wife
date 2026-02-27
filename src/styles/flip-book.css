@@ -1,0 +1,160 @@
+/* PageFlip Book Styles */
+.flip-book-container {
+  max-width: 90vw;
+  max-height: 80vh;
+}
+
+.flip-book {
+  box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.3);
+  background-size: cover;
+  margin: 0 auto;
+}
+
+.page {
+  padding: 20px;
+  background-color: hsl(35, 55%, 98%);
+  color: hsl(35, 35%, 35%);
+  border: solid 1px hsl(35, 20%, 70%);
+  overflow: hidden;
+}
+
+.page-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.page-header {
+  height: 40px;
+  font-size: 140%;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.page-image {
+  height: 280px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+}
+
+.page-text {
+  flex-grow: 1;
+  font-size: 90%;
+  text-align: justify;
+  padding-top: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.page-footer {
+  height: 30px;
+  border-top: solid 1px hsl(35, 55%, 90%);
+  font-size: 85%;
+  color: hsl(35, 20%, 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Left page styles */
+.page.--left {
+  border-right: 0;
+  box-shadow: inset -7px 0 30px -7px rgba(0, 0, 0, 0.4);
+}
+
+/* Right page styles */
+.page.--right {
+  border-left: 0;
+  box-shadow: inset 7px 0 30px -7px rgba(0, 0, 0, 0.4);
+}
+
+.page.--right .page-footer {
+  text-align: right;
+  justify-content: flex-end;
+}
+
+/* Hard cover pages */
+.page.hard {
+  background-color: hsl(35, 50%, 90%);
+  border: solid 1px hsl(35, 20%, 50%);
+}
+
+/* Cover pages */
+.page.page-cover {
+  background: linear-gradient(135deg, hsl(35, 45%, 80%), hsl(35, 50%, 85%));
+  color: hsl(35, 35%, 35%);
+  border: solid 1px hsl(35, 20%, 50%);
+}
+
+.page.page-cover h2 {
+  text-align: center;
+  font-size: 240%;
+  margin: 0;
+}
+
+.page.page-cover-top {
+  box-shadow: inset 0px 0 30px 0px rgba(36, 10, 3, 0.5),
+    -2px 0 5px 2px rgba(0, 0, 0, 0.4);
+}
+
+.page.page-cover-bottom {
+  box-shadow: inset 0px 0 30px 0px rgba(36, 10, 3, 0.5),
+    10px 0 8px 0px rgba(0, 0, 0, 0.4);
+}
+
+/* Dark mode adjustments */
+.dark .page {
+  background-color: hsl(35, 15%, 15%);
+  color: hsl(35, 55%, 85%);
+  border-color: hsl(35, 10%, 25%);
+}
+
+.dark .page.page-cover {
+  background: linear-gradient(135deg, hsl(35, 25%, 25%), hsl(35, 30%, 30%));
+  color: hsl(35, 55%, 85%);
+}
+
+.dark .page-footer {
+  border-top-color: hsl(35, 15%, 25%);
+  color: hsl(35, 30%, 60%);
+}
+
+.dark .page-text {
+  border-top-color: hsl(35, 15%, 25%);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .page {
+    padding: 15px;
+  }
+
+  .page-header {
+    font-size: 110%;
+    height: 35px;
+  }
+
+  .page-image {
+    height: 200px;
+  }
+
+  .page-text {
+    font-size: 85%;
+    max-height: 200px;
+  }
+
+  .page.page-cover h2 {
+    font-size: 180%;
+  }
+}
