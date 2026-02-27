@@ -35,7 +35,7 @@ const Auth = () => {
     try {
       // Validate email
       const validatedEmail = emailSchema.parse(email.trim());
-      
+
       // Validate password
       passwordSchema.parse(password);
 
@@ -69,7 +69,7 @@ const Auth = () => {
           title: "Success!",
           description: "Account created successfully. Logging you in...",
         });
-        
+
         navigate("/");
       } else {
         // Login
@@ -81,10 +81,10 @@ const Auth = () => {
         if (error) throw error;
 
         toast({
-          title: "Welcome back UNNATIIIIIIIIIII(I hope it's you)!",
+          title: "Welcome back",
           description: "You've successfully logged in.",
         });
-        
+
         navigate("/");
       }
     } catch (error: any) {
@@ -111,7 +111,7 @@ const Auth = () => {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl text-center text-pink-600">
-            {isLogin ? "Welcome Back UNNATIIIIIIIIIII(I hope it's you)!" : "Create Account"}
+            {isLogin ? "Welcome Back" : "Create Account"}
           </CardTitle>
           <CardDescription className="text-center">
             {isLogin
