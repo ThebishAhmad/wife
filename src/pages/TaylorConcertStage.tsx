@@ -619,7 +619,7 @@ const TaylorConcertStage = () => {
         </div>
 
         {/* Falling Text */}
-        <div className="max-w-4xl mx-auto mb-8 h-32 pointer-events-auto flex-shrink-0">
+        <div className="w-full max-w-4xl mx-auto mb-6 h-40 pointer-events-auto flex-shrink-0">
           <FallingText
             text="You make my world feel real in a way nothing else does."
             highlightWords={["world", "real", "nothing"]}
@@ -628,8 +628,9 @@ const TaylorConcertStage = () => {
             wireframes={false}
             gravity={0.56}
             fontSize="1.8rem"
+            accentColor={`rgb(${era.color})`}
             mouseConstraintStiffness={0.9}
-            className="text-white/90 drop-shadow-md"
+            className="text-white/90 drop-shadow-md w-full h-full"
           />
         </div>
 

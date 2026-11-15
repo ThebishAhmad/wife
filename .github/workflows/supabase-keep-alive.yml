@@ -1,0 +1,32 @@
+name: Supabase Keep-Alive
+
+on:
+  schedule:
+    # Runs at midnight UTC every Monday, Wednesday, and Friday
+    - cron: '0 0 * * 1,3,5'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions UI
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase Database
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://qwbqraecjczramhpalty.supabase.co' }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || 'sb_publishable_D8Q0up5G6roIB6utBnz4bQ_y35ugI8S' }}
+        run: |
+          echo "Sending keep-alive ping to Supabase..."
+          HTTP_STATUS=$(curl -s -o response.json -w "%{http_code}" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            "$SUPABASE_URL/rest/v1/allowed_emails?select=count")
+          
+          echo "HTTP Status: $HTTP_STATUS"
+          cat response.json
+          
+          if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 300 ]; then
+            echo "Supabase ping successful! Database is kept active."
+          else
+            echo "Ping failed with status $HTTP_STATUS"
+            exit 1
+          fi

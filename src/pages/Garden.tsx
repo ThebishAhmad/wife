@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo, Suspense } from "react";
+  import { useState, useRef, useEffect, useMemo, Suspense } from "react";
 import { usePerformance } from "@/context/PerformanceContext";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Heart, Sparkles, Wind } from "lucide-react";
@@ -7,13 +7,8 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
-  Environment,
-  MeshTransmissionMaterial,
   Float,
-  AccumulativeShadows,
-  RandomizedLight,
   useCursor,
-  Html,
   CameraControls,
   Sparkles as R3FSparkles
 } from "@react-three/drei";
@@ -131,10 +126,17 @@ const CrystalHeart = ({
 
       <mesh rotation={[0, 0, Math.PI]} position={[0, -0.5, 0]}>
         <extrudeGeometry args={[heartShape, { depth: 0.4, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.05, bevelThickness: 0.05 }]} />
-        <MeshTransmissionMaterial
-          backside samples={2} thickness={0.5} roughness={0.2}
-          transmission={1} color={gemColor} anisotropy={0.1} resolution={256}
-          chromaticAberration={0.03} ior={1.4} distortion={0.1} distortionScale={0.3} temporalDistortion={0.1}
+        <meshPhysicalMaterial
+          color={gemColor}
+          transmission={0.9}
+          opacity={1}
+          transparent={true}
+          roughness={0.15}
+          ior={1.5}
+          thickness={0.8}
+          specularIntensity={1}
+          metalness={0.1}
+          clearcoat={0.3}
         />
       </mesh>
 
@@ -237,37 +239,39 @@ const Garden = () => {
         <Canvas shadows camera={{ position: [0, 8, 16], fov: 45 }} dpr={[1, 2]}>
           <fog attach="fog" args={['#762036', 10, 35]} />
 
-          <ambientLight intensity={0.8} color="#ffd700" />
-          <spotLight position={[10, 15, 5]} angle={0.25} penumbra={1} intensity={2.5} castShadow color="#ff69b4" />
-          <spotLight position={[-10, 8, -5]} angle={0.25} penumbra={1} intensity={2.5} color="#ffd700" />
+          <ambientLight intensity={1.2} color="#ffd700" />
+          <directionalLight position={[0, 15, 10]} intensity={1.8} color="#fff0f5" castShadow />
+          <spotLight position={[10, 15, 5]} angle={0.35} penumbra={1} intensity={2.5} castShadow color="#ff69b4" />
+          <spotLight position={[-10, 8, -5]} angle={0.35} penumbra={1} intensity={2.5} color="#ffd700" />
 
-          <Environment preset="city" />
+          <Suspense fallback={null}>
+            <group position={[0, -4, 0]}>
+              <GoldTree />
 
-          <group position={[0, -4, 0]}>
-            <GoldTree />
+              {memories.map(m => (
+                <CrystalHeart
+                  key={m.id}
+                  position={m.position as [number, number, number]}
+                  color={m.color}
+                  scale={m.scale}
+                  isHanging={true}
+                  onClick={() => handleCrystalClick(m.id)}
+                  windStrength={windStrength}
+                />
+              ))}
 
-            {memories.map(m => (
-              <CrystalHeart
-                key={m.id}
-                position={m.position as [number, number, number]}
-                color={m.color}
-                scale={m.scale}
-                isHanging={true}
-                onClick={() => handleCrystalClick(m.id)}
-                windStrength={windStrength}
-              />
-            ))}
+              <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
+                <planeGeometry args={[100, 100]} />
+                <meshStandardMaterial
+                  color="#3a1324"
+                  roughness={0.4}
+                  metalness={0.5}
+                />
+              </mesh>
 
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
-              <planeGeometry args={[100, 100]} />
-              <MeshTransmissionMaterial
-                backside samples={2} thickness={0.5} roughness={0.1}
-                transmission={0.8} color="#ffdddd" anisotropy={0.1} resolution={256}
-              />
-            </mesh>
-
-            <R3FSparkles count={80} scale={15} size={3} speed={0.2} opacity={0.6} color="#ffeebb" />
-          </group>
+              <R3FSparkles count={80} scale={15} size={3} speed={0.2} opacity={0.6} color="#ffeebb" />
+            </group>
+          </Suspense>
 
           <CameraControls ref={cameraRef} minPolarAngle={0} maxPolarAngle={Math.PI / 2} />
         </Canvas>
