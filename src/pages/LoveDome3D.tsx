@@ -268,13 +268,13 @@ const LoveDome3D = () => {
       {/* Header */}
       <div className="relative z-10 p-6">
         <div className="text-center mb-8">
-          <Link to="/universe">
+          <Link to="/">
             <Button
               variant="ghost"
               className="text-white hover:bg-white/10 mb-6"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
-              Back to Universe
+              Back to Home
             </Button>
           </Link>
 

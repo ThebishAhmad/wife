@@ -10,13 +10,13 @@ const HeroParallaxPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 dark:from-rose-950 dark:via-purple-950 dark:to-indigo-950">
       <div className="fixed top-6 left-6 z-50">
         <Button
-          onClick={() => navigate("/universe")}
+          onClick={() => navigate("/")}
           variant="outline"
           size="lg"
           className="bg-card/80 backdrop-blur-sm border-rose-light/30 hover:bg-rose/10"
         >
           <ArrowLeft className="w-5 h-5 mr-2" />
-          Back to Universe
+          Back to Home
         </Button>
       </div>
 

@@ -100,10 +100,10 @@ const Diary = () => {
       <div className="relative z-10 container mx-auto px-4 py-12 max-w-4xl">
         <Button
           variant="outline"
-          onClick={() => navigate("/universe")}
+          onClick={() => navigate("/")}
           className="mb-8 bg-white/70 backdrop-blur-sm border-rose-300"
         >
-          ← Back to Universe
+          ← Back to Home
         </Button>
 
         <div className="text-center mb-8">
