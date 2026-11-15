@@ -29,7 +29,7 @@ type MemoryCrystal = {
 const initialMemories = [
   { id: 1, memory: "The way you laugh moving your upper body forward is so.", color: "#ff69b4", position: [3, 6, 0], scale: 1 },
   { id: 2, memory: "Your hazel eyes, I actually can take a deep dive into them.", color: "#ffd700", position: [0.92, 6, 2.85], scale: 1.2 },
-  { id: 3, memory: "Holding hands in the cinema, while walking. Staring at you while you're eating.", color: "#da70d6", position: [-2.42, 6, 1.76], scale: 0.9 },
+  { id: 3, memory: "Going on all the trips with you, holding your hand while walking long roads.", color: "#da70d6", position: [-2.42, 6, 1.76], scale: 0.9 },
   { id: 4, memory: "When you lose a game, but you never lose, so you never lost.", color: "#ffb6c1", position: [-2.42, 6, -1.76], scale: 1.1 },
   { id: 5, memory: "Singing random songs while we're walking.", color: "#ff1493", position: [0.92, 6, -2.85], scale: 1 },
   { id: 6, memory: "The way you look at me when I crack a bad joke.", color: "#e6e6fa", position: [4.5, 8, 0], scale: 1.4 },
